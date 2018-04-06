@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+    <display-name>ZBZD</display-name>
+    <welcome-file-list>
+        <welcome-file>/WEB-INF/view/index.jsp</welcome-file>
+    </welcome-file-list>
+    <!-- Dispatcher配置，load-on-startup为0为初始不启动，其余为初始启动，init-param为初始化context.xml配置 -->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <!-- 配置springMVC需要加载的配置文件
+            spring-dao.xml,spring-service.xml,spring-web.xml
+            Mybatis - > spring -> springmvc
+         -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-dao.xml,classpath:spring-service.xml,classpath:spring-web.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- 拦截器，路径 -->
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

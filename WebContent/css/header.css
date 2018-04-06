@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.header{height:50px;border: solid;}
+#logo{color: blue;list-style-type: none; display: inline;padding-right:20px;}
+.navigation{margin-left:250px;float:left;}
+.userinfo{margin-right:200px;float: right;margin-top:-20px;}
+.but{list-style-type: none; display: inline; padding-right:20px;}
+.searchbar{margin-left:280px;margin-top:15px;}
+.signin{float: inherit;margin-right:20px;}
+.signup{float:inherit;}
+.signout{float:inherit;}

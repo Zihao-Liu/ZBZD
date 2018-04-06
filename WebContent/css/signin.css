@@ -1,0 +1,41 @@
+#login {
+    width: 290px;
+    height: auto;
+    overflow: hidden;
+    border: solid 1px #CCCCCC;
+    margin-top:200px;
+    margin-left:600px;
+}
+#login_title {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background-color: #F60;
+    text-align: center;
+}
+.line {
+    width: 250px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 20px;
+    text-align: center;
+    font-family: ¿¬Ìå;
+}
+.line input {
+    width: 150px;
+}
+.line a {
+    font-size: 14px;
+    color: black;
+}
+.line span {
+    color: #F00;
+}
+#log_submit {
+    display: block;
+    width: 200px;
+    height: 30px;
+    margin-left: 45px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}

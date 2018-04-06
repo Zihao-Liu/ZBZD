@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lzh.zbzd.dao.UserDao">
+
+	<resultMap type="cn.lzh.zbzd.model.User" id="BaseResultMap">
+		<id column="pk_id" property="id" jdbcType="BIGINT" />
+		<result column="uk_username" property="usernmae" jdbcType="VARCHAR" />
+		<result column="gmt_create" property="createTime" jdbcType="DATE" />
+		<result column="gmt_modified" property="modifiedTime" jdbcType="DATE" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="TINYINT" />
+		<result column="introduction" property="introduction" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="insertUser" parameterType="cn.lzh.zbzd.model.User">
+		INSERT INTO USER(gmt_create,gmt_modified,uk_username,password,
+		nickname,privacy,gender,introduction)
+		VALUES(#{createTime}, #{modifiedTime}, #{username},#{password},
+		#{nickname},#{privacy},#{gender},#{introduction})
+	</insert>
+
+	<select id="getUserById" parameterType="long" resultType="cn.lzh.zbzd.model.User">
+		SELECT *
+		FROM USER
+		WHERE pk_id = #{id}
+	</select>
+
+	<select id="getUserByUsername" parameterType="java.lang.String"
+		resultType="cn.lzh.zbzd.model.User">
+		SELECT pk_id as id, gmt_create as createTime,gmt_modified as modifiedTime,
+		uk_username as username,password,nickname,privacy,gender,introduction
+		FROM USER
+		WHERE uk_username = #{username}
+	</select>
+
+
+
+	<select id="getUserByNickname" parameterType="string"
+		resultType="cn.lzh.zbzd.model.User">
+		SELECT *
+		FROM USER
+		WHERE nickname = #{nickname}
+	</select>
+
+	<update id="updateUser" parameterType="cn.lzh.zbzd.model.User">
+		UPDATE USER
+		SET
+		gmt_modified = #{user.modifiedTime},
+		password = #{user.password},
+		nickname = #{user.nickName},
+		privacy = #{user.privacy},
+		gender = #{user.gender},
+		introduction = #{user.introduction}
+		WHERE pk_id =#{user.id}
+	</update>
+
+</mapper>
