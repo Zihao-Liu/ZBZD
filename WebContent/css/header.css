@@ -1,10 +1,87 @@
 @charset "UTF-8";
 .header{height:50px;border: solid;}
-#logo{color: blue;list-style-type: none; display: inline;padding-right:20px;}
+#logo{color: black;list-style-type: none; display: inline;padding-right:20px;}
 .navigation{margin-left:250px;float:left;}
 .userinfo{margin-right:200px;float: right;margin-top:-20px;}
-.but{list-style-type: none; display: inline; padding-right:20px;}
+.fun{list-style-type: none; display: inline; padding-right:20px;}
 .searchbar{margin-left:280px;margin-top:15px;}
 .signin{float: inherit;margin-right:20px;}
 .signup{float:inherit;}
 .signout{float:inherit;}
+
+
+.user{position:relative;display:inline-block;color:black;}
+.usermenu{background-color:white;display:none;position:absolute;z-index:1;width:40px;height:auto;left:-5px;padding-left:15px;}
+.user:hover .usermenu{display:block;}
+
+a:link{color:grey;text-decoration:none;}
+a:visited{color:grey;text-decoration:none;}
+a:hover{color:grey;}
+
+.searchbar input{
+    border:solid;
+}
+.searchbutton{
+    background-color: white;
+    color: #555555;
+    border: solid;
+}
+
+.s{
+    background-color: white;
+    color: #555555;
+    border: solid;
+    margin-right:10px;
+}
+
+.question{ 
+    background-color: white;
+    color: #555555;
+    border: solid;
+    margin-left:320px;
+    margin-top:-23px;
+}
+
+.questionbar{
+    background-color:white;
+    border:solid 2px;
+    width:450px;
+    margin-top:200px;
+    margin-left:530px;
+    height:300px;
+    color:#c0c0c0;
+    font-size:12px;
+}
+
+select{
+    margin-left:20px;
+    margin-top:10px;
+    width:400px;
+    height:40px;
+}
+
+.questionbar input{
+    width:396px;
+    height:40px;
+    margin-left:20px;
+    margin-top:20px;
+    text-align:center;
+    color:black;
+}
+
+
+.questionbar .sub{
+    background-color:white;
+    width:400px;
+    border:solid;
+    color:black;
+}
+.questionbar .sub:hover{
+    color:white;
+    background-color:#555555;
+}
+
+.questionbar .ano{
+	width:10px;
+	height:10px;
+}

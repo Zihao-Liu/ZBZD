@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public int signUp(User user) {
         return userDao.insertUser(user);
-
     }
 
     @Override

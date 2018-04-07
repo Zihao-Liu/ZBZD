@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lzh.zbzd.dao.TagDao">
+
+    <resultMap type="cn.lzh.zbzd.model.Tag" id="BaseResultMap">
+        <id column="pk_id" property="id" jdbcType="BIGINT"/>
+        <result column="gmt_create" property="createTime" jdbcType="DATE"/>
+        <result column="gmt_modified" property="modifiedTime" jdbcType="DATE"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="father_id" property="fatherId" jdbcType="BIGINT"/>
+    </resultMap>
+    
+    <select id="listAllTag" resultType="cn.lzh.zbzd.model.Tag">
+        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, name, father_id as fatherId
+        from tag
+        where father_id != 0;
+    </select>
+    
+    <select id="getTagbyName" parameterType="String" resultType="cn.lzh.zbzd.model.Tag">
+        select * 
+        from tag
+        where name = #{name}
+    </select>
+    
+    <select id="getTagById" parameterType="long" resultType="cn.lzh.zbzd.model.Tag">
+        select *
+        from tag
+        where pk_id = #{id}
+    </select>
+    
+    <select id="listSubTagByFatherId" parameterType="long" resultType="cn.lzh.zbzd.model.Tag">
+        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, name, father_id as fatherId
+        from tag
+        where father_id=#{fatherId}
+    </select>
+    
+    <delete id="deleteTagById" parameterType="long">
+        delete 
+        from tag
+        where pk_id =#{id}
+    </delete>
+
+</mapper>

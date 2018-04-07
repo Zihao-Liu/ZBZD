@@ -44,6 +44,14 @@
             expression="cn.lzh.zbzd.service.*" />
         <context:include-filter type="regex"
             expression="cn.lzh.zbzd.controller.*" />
+        <context:include-filter type="regex"
+            expression="cn.lzh.zbzd.interceptor.*" />
     </context:component-scan>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="cn.lzh.zbzd.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

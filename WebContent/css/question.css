@@ -1,0 +1,28 @@
+.questioncontent{
+    margin-left:300px;
+}
+.questioncontent h1{
+    font-size:20px;
+    margin-bottom:-10px;
+}
+.questioncontent input{
+    width = 20px;
+    color:#555555;
+    background-color:#55555;
+    border:solid;
+}
+.questioncontent input:hover{
+    color:white;
+    background-color:#555555;
+}
+
+.questioncontent .attachment{
+    font-size:10px;
+    color:#55555;
+}
+.ano{
+	color:#555555;
+    background-color:white;
+    border:solid 1px;
+    font-size:5px;
+}

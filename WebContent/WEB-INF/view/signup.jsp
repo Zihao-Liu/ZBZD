@@ -17,7 +17,7 @@
 
 	<form action="/zbzd/userController/signUp" method="post">
 		用户名：<input type="text" name="username" placeholder="只允许字母和数字"/> 
-		密码<input type="password" name="password" placcholder="只允许字母和数字"/> 
+		密码<input type="password" name="password" placeholder="只允许字母和数字"/> 
 		昵称 <input type="text" name="nickname" placeholder="不能为空"/> 
 		隐私<label><input type="radio" name="privacy" value="1" checked="checked">公开</label> 
 		<label><input type="radio" name="privacy" value="0">隐藏</label> 

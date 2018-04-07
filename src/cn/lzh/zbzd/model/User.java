@@ -5,10 +5,16 @@ import java.util.Date;
 
 public class User implements Serializable {
     /**
-     * create table user( pk_id bigint unsigned auto_increment, gmt_create datetime
-     * not null, gmt_modified datetime not null, uk_username varchar(20) not null,
-     * password varchar(20) not null, nickname varchar(20) not null, privacy tinyint
-     * unsigned default 0, gender varchar(6) default 'male', introduction text,
+     * create table user( 
+     * pk_id bigint unsigned auto_increment, 
+     * gmt_create datetime
+     * not null, gmt_modified datetime not null, 
+     * uk_username varchar(20) not null,
+     * password varchar(20) not null, 
+     * nickname varchar(20) not null, 
+     * privacy tinyint unsigned default 0, 
+     * gender varchar(6) default 'male', 
+     * introduction text,
      * primary key(pk_id));
      */
     private static final long serialVersionUID = 1L;

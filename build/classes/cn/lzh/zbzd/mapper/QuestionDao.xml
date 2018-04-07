@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lzh.zbzd.dao.QuestionDao">
+
+	<resultMap type="cn.lzh.zbzd.model.Question" id="BaseResultMap">
+	   <id column="pk_id" property="id" jdbcType="BIGINT"/>
+	   <result column="gmt_create" property="createTime" jdbcType="DATE"/>
+	   <result column="gmt_modified" property="modifiedTime" jdbcType="DATE"/>
+	   <result column="title" property="title" jdbcType="VARCHAR"/>
+	   <result column="content" property="content" jdbcType="VARCHAR"/>
+	   <result column="is_anonymous" property="isAnonymous" jdbcType="TINYINT"/>
+	   <result column="user_id" property="userId" jdbcType="BIGINT"/>
+	</resultMap>
+	
+	<select id="getQuestionById" parameterType="long" resultType="cn.lzh.zbzd.model.Question">
+	   select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, title, content, 
+	   is_anonymous as isAnonymous, user_id as userId
+	   from question
+	   where pk_id = #{id}
+	</select>
+	
+	<select id="listQuestionByUserId" parameterType="long" resultType="cn.lzh.zbzd.model.Question">
+	   select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, title, content, 
+       is_anonymous as isAnonymous, user_id as userId
+       from question
+       where user_id = #{userId}
+	</select>
+	
+	<delete id="deleteQuestionById" parameterType="long">
+	   delete
+	   from Question
+	   where pk_id = #{id}
+	</delete>
+	
+	<insert id="insertQuestion" keyProperty="id" parameterType="cn.lzh.zbzd.model.Question">
+	   insert 
+	   into Question(gmt_create,gmt_modified,title,content,is_anonymous,user_id)
+	   values(#{createTime},#{modifiedTime},#{title},#{content},#{isAnonymous},#{userId})
+	</insert>
+	
+	<select id="listAllQuestionOrderByModifiedTime" resultType="cn.lzh.zbzd.model.Question">
+	   select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, title, content, 
+       is_anonymous as isAnonymous, user_id as userId
+       from question
+       order by gmt_modified desc
+	</select>
+</mapper>

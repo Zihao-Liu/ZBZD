@@ -20,6 +20,9 @@ import cn.lzh.zbzd.serviceimpl.UserServiceImpl;
 public class UserController {
     @Autowired
     private UserServiceImpl userServiceImpl;
+    
+    @Autowired
+    private User user;
 
     @RequestMapping(value = "/toSignUp", method = RequestMethod.GET)
     public String toSignUp(HttpServletRequest request) {
@@ -36,7 +39,7 @@ public class UserController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String nickname = request.getParameter("nickname");
-        String pattern = "^[A-Za-z0-9]{4,40}$";
+        String pattern = "^[A-Za-z0-9]{0,40}$";
         Pattern r = Pattern.compile(pattern);
         Matcher m;
         if (username.equals(null) || username == "") {
@@ -73,7 +76,7 @@ public class UserController {
         }
         if (userServiceImpl.checkExistUsername(request.getParameter("username")) == null) {
             System.out.println(4);
-            User user = new User();
+            //User user = new User();
             user.setCreateTime(new Date());
             user.setModifiedTime(user.getCreateTime());
             user.setUsername(request.getParameter("username"));

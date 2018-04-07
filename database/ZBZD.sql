@@ -50,20 +50,11 @@ create table tag(
     gmt_create datetime not null,
     gmt_modified datetime not null,
     name varchar(10) unique,
+    father_id bigint unsigned default 0,
     primary key(pk_id)
 );
-insert into tag values(0,'20180405000000','20180405000000','根话题');
+insert into tag values(0,'20180405000000','20180405000000','根话题',0);
 
-create table tag_relation(
-	pk_id bigint unsigned auto_increment,
-    gmt_create datetime not null,
-    gmt_modified datetime not null,
-    child bigint unsigned,
-    father bigint unsigned,
-    primary key (pk_id),
-    foreign key (child) references tag(pk_id),
-    foreign key (father) references tag(pk_id)
-);
 
 create table question_belong_tag(
 	pk_id bigint unsigned auto_increment,
@@ -122,4 +113,12 @@ create table user_collect_answer(
     foreign key(user_id) references user(pk_id),
     foreign key(answer_id) references answer(pk_id),
     foreign key(favourite_id) references favourite(pk_id)
-)
+);
+
+
+INSERT INTO `zbzd`.`tag` (`pk_id`, `gmt_create`, `gmt_modified`, `name`, `father_id`) VALUES ('2', '2018-04-06 00:00:00', '2018-04-06 00:00:00', '游戏', '1');
+INSERT INTO `zbzd`.`tag` (`pk_id`, `gmt_create`, `gmt_modified`, `name`, `father_id`) VALUES ('3', '2018-04-06 00:00:00', '2018-04-06 00:00:00', '运动', '1');
+INSERT INTO `zbzd`.`tag` (`pk_id`, `gmt_create`, `gmt_modified`, `name`, `father_id`) VALUES ('4', '2018-04-06 00:00:00', '2018-04-06 00:00:00', '互联网', '1');
+INSERT INTO `zbzd`.`tag` (`pk_id`, `gmt_create`, `gmt_modified`, `name`, `father_id`) VALUES ('5', '2018-04-06 00:00:00', '2018-04-06 00:00:00', '单机游戏', '2');
+INSERT INTO `zbzd`.`tag` (`pk_id`, `gmt_create`, `gmt_modified`, `name`, `father_id`) VALUES ('6', '2018-04-06 00:00:00', '2018-04-06 00:00:00', '网络游戏', '2');
+INSERT INTO `zbzd`.`tag` (`pk_id`, `gmt_create`, `gmt_modified`, `name`, `father_id`) VALUES ('7', '2018-04-06 00:00:00', '2018-04-06 00:00:00', '足球', '3');
