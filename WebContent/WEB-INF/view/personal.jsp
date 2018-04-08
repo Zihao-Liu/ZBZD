@@ -11,11 +11,34 @@
 <meta http-equiv="Content-Type" content="text/html charset=gb2312">
 
 <link href="<%=request.getContextPath() %>/css/header.css" type="text/css" rel="stylesheet" media="all" charset="utf-8" />
-<link href="<%=request.getContextPath() %>/css/index.css" type="text/css" rel="stylesheet" media="all" charset="utf-8" />
+<link href="<%=request.getContextPath() %>/css/personal.css" type="text/css" rel="stylesheet" media="all" charset="utf-8" />
 </head>
 
 <body>
     <%@include file="header.jsp" %>
+    <div class="personal">
+        <p class="nickname">用户名: ${user.nickname}<p>
+        <p class="gender">性别: ${user.gender}</p>
+        <p class="introduction">个人简介:
+            <c:if test="${empty user.introduction}">
+                                    无个人简介     
+            </c:if>
+            ${user.introduction}s
+        </p>
+        <p class="privacy">
+	        <c:choose>
+		        <c:when test="${user.privacy==1}">
+		                                当前隐私公开 <input type="button" value="隐藏" class="change"/>
+		        </c:when>
+		        <c:otherwise>
+		                               当前隐私隐藏  <input type="button" value="公开" class="change"/>
+		        </c:otherwise>
+		    </c:choose>
+		    <input type="button" value="编辑个人资料" class="edit"/>
+	    </p>
+    </div>
+    
+    
     <div class="questionbar">
         <c:forEach var="question" items="${questions}">
             <div class="onequestion">
@@ -34,7 +57,6 @@
             </c:if>
         </div>
     </div>
-
 </body>
 
 </html>

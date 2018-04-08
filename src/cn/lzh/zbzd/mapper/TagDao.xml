@@ -19,13 +19,13 @@
     </select>
     
     <select id="getTagbyName" parameterType="String" resultType="cn.lzh.zbzd.model.Tag">
-        select * 
+        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, name, father_id as fatherId
         from tag
         where name = #{name}
     </select>
     
-    <select id="getTagById" parameterType="long" resultType="cn.lzh.zbzd.model.Tag">
-        select *
+    <select id="getTagbyId" parameterType="long" resultType="cn.lzh.zbzd.model.Tag">
+        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, name, father_id as fatherId
         from tag
         where pk_id = #{id}
     </select>

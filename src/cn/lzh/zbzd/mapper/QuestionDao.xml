@@ -36,7 +36,7 @@
 	
 	<insert id="insertQuestion" keyProperty="id" parameterType="cn.lzh.zbzd.model.Question">
 	   insert 
-	   into Question(gmt_create,gmt_modified,title,content,is_anonymous,user_id)
+	   into question(gmt_create,gmt_modified,title,content,is_anonymous,user_id)
 	   values(#{createTime},#{modifiedTime},#{title},#{content},#{isAnonymous},#{userId})
 	</insert>
 	

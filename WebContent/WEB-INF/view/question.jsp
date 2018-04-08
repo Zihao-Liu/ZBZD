@@ -17,7 +17,7 @@
 <body>
     <%@include file="header.jsp" %>
     <div class="questioncontent">
-        <p>来自话题:</p>
+        <p>来自话题:${tagName}</p>
         <h1>${question.title}</h1>
         <p>${question.content}</p>
         <input type="button" value="关注问题">

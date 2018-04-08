@@ -36,7 +36,7 @@
 			<c:otherwise>
 			    <div class= "user">${user.username}
 			         <div class="usermenu">
-			             <a href="#">个人</a>
+			             <a href="/zbzd/userController/personal?curPage=1&pageSize=5">个人</a>
 			             <a href="/zbzd/userController/signOut">退出</a>
 			         </div>
 			    </div>

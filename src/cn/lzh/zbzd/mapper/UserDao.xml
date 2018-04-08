@@ -14,7 +14,7 @@
 		<result column="introduction" property="introduction" jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<insert id="insertUser" parameterType="cn.lzh.zbzd.model.User">
+	<insert id="insertUser" parameterType="cn.lzh.zbzd.model.User" keyProperty="id">
 		INSERT INTO USER(gmt_create,gmt_modified,uk_username,password,
 		nickname,privacy,gender,introduction)
 		VALUES(#{createTime}, #{modifiedTime}, #{username},#{password},

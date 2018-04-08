@@ -9,4 +9,5 @@ public interface TagService {
     public List<Tag> listAllTopTag();
     public List<Tag> listAllSubTag(long fatherId);
     public Tag getFatherTag(long id);
+    public Tag getTagById(long id);
 }

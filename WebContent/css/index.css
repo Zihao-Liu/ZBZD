@@ -1,0 +1,34 @@
+.questionbar{
+    margin-top:20px;
+    width:800px;
+    margin-left:300px;
+    font-size:20px;
+    height:auto;
+    color:black;
+    border:none;
+}
+
+.attachment{
+    font-size:10px;
+    margin-top:-10px;
+}
+.onequestion{
+    height:50pxpx;
+    margin-top:0px;
+    border:solid;
+    margin-top:20px;
+}
+p{
+    margin-left:15px;
+}
+
+.content{
+    font-size:15px;
+    margin-left:40px;
+    margin-top:-10px;
+}
+.pagetool{
+    margin-top:20px;
+    font-size:15px;
+    text-align:center;
+}

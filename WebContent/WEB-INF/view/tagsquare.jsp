@@ -24,18 +24,18 @@
             </c:forEach>
         </ul>
     
-    
-    <c:if test="${not empty subtags}">
 	    <div class="subsquare">
 	    <hr/>
-	       <h1>子话题</h1>
-	       <ul>
-	            <c:forEach var="subtag" items="${subtags}" >
-	                <li class="subtag"><input type="button" value="${subtag.name}" class="but"/></li>
-	            </c:forEach>
-           </ul>
+	    <h1>子话题</h1>
+	    <ul>
+	       <c:if test="${not empty subtags}">
+		      <li class="subtag"><input type="button" value="${tag.name}" class="but" onclick="window.location.href='/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=1&pageSize=2'"/></li>
+			  <c:forEach var="subtag" items="${subtags}" >
+			     <li class="subtag"><input type="button" value="${subtag.name}" class="but" onclick="window.location.href='/zbzd/tagController/questionBelongTag?id=${subtag.id}&curPage=1&pageSize=2'"/></li>
+			  </c:forEach>
+		    </c:if>
+	    </ul>
 	    </div>
-    </c:if>
     </div>
 </body>
 

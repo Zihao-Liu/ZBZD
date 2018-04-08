@@ -1,6 +1,7 @@
 package cn.lzh.zbzd.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cn.lzh.zbzd.model.Question;
 import cn.lzh.zbzd.model.User;
+import cn.lzh.zbzd.serviceimpl.QuestionServiceImpl;
 import cn.lzh.zbzd.serviceimpl.UserServiceImpl;
 
 @Controller
@@ -24,6 +27,9 @@ public class UserController {
     @Autowired
     private User user;
 
+    @Autowired
+    private QuestionServiceImpl questionServiceImpl;
+    
     @RequestMapping(value = "/toSignUp", method = RequestMethod.GET)
     public String toSignUp(HttpServletRequest request) {
         return "signup";
@@ -75,7 +81,6 @@ public class UserController {
             }
         }
         if (userServiceImpl.checkExistUsername(request.getParameter("username")) == null) {
-            System.out.println(4);
             //User user = new User();
             user.setCreateTime(new Date());
             user.setModifiedTime(user.getCreateTime());
@@ -85,14 +90,13 @@ public class UserController {
             user.setNickname(request.getParameter("nickname"));
             user.setIntroduction(request.getParameter("introduction"));
             user.setPrivacy(Integer.parseInt(request.getParameter("privacy")));
-            System.out.println(5);
             userServiceImpl.signUp(user);
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
         } else {
             request.setAttribute("error", "用户名已存在");
             return "signup";
         }
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
         return "index";
     }
 
@@ -141,5 +145,27 @@ public class UserController {
         HttpSession session = request.getSession();
         session.removeAttribute("user");
         return "index";
+    }
+    
+    @RequestMapping(value="/personal",method=RequestMethod.GET)
+    public String personal(HttpServletRequest request) {
+        HttpSession session;
+        session = request.getSession();
+        user = (User)session.getAttribute("user");
+        List<Question> questions = questionServiceImpl.listAllQuestionByUserId(user.getId());
+        int curPage =Integer.parseInt(request.getParameter("curPage"));
+        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+        int totalPage = questions.size()/pageSize;
+        System.out.println("total:"+totalPage);
+        if(questions.size()%pageSize!=0)
+            totalPage+=1;
+        System.out.println("total:"+totalPage);
+        int front = (curPage-1)*pageSize;
+        int end = front+pageSize<=questions.size()?front+pageSize:questions.size();
+        questions=questions.subList(front,end);
+        request.setAttribute("curPage", curPage);
+        request.setAttribute("questions", questions);
+        request.setAttribute("totalPage", totalPage);
+        return "personal";
     }
 }

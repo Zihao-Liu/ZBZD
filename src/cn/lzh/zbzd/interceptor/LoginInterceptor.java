@@ -1,5 +1,8 @@
 package cn.lzh.zbzd.interceptor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,11 +13,16 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         Object user = request.getSession().getAttribute("user");
         String requestURL = request.getRequestURI();
-        String forbiddenURL = "/questionController/postQuestion";
-        if(requestURL.contains(forbiddenURL) && null == user) {
-            response.sendRedirect("/zbzd/userController/toSignIn");
-            return false;
+        List<String> forbiddenURLS = new ArrayList<String>();
+        forbiddenURLS.add("/questionController/postQuestion");
+        forbiddenURLS.add("/userController/personal");
+        for(String forbiddenURL:forbiddenURLS) {
+            if(requestURL.contains(forbiddenURL) && null == user) {
+                response.sendRedirect("/zbzd/userController/toSignIn");
+                return false;
+            }
         }
+
         return true;
     }
 
