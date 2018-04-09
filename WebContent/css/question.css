@@ -21,8 +21,73 @@
     color:#55555;
 }
 .ano{
-	color:#555555;
+    color:#555555;
     background-color:white;
     border:solid 1px;
     font-size:5px;
+}
+.postanswer{
+    font-size:15px;
+    color:#5555;
+    margin-left:300px;
+    margin-top:50px;
+}
+.ans{
+    border:solid;
+    color:#55555;
+    background-color:white;
+}
+.ans:hover{
+    color:white;
+    background-color:#555555;
+}
+.answercontent{
+    width:600px;
+}
+
+.contentbar{
+    margin-left:300px;
+    width:800px;
+}
+
+.contentbar h1{
+    font-size:20px;
+}
+
+.oneanswer{
+    border:solid;
+    margin-bottom:20px;
+}
+
+.pagetool{
+    text-align:center;
+}
+
+.oneanswer .content{
+    margin-left:20px;
+}
+
+.oneanswer .attachment{
+    margin-left:500px;
+    font-size:10px;
+}
+.myanswer .oneanswer{
+    margin-left:300px;
+}
+.postanswer{
+    width:800px;
+    margin-top:-4px;
+}
+.myanswer{
+    margin-top:40px;
+    width:1100px;
+}
+.myanswer h1{
+    font-size:20px;
+    margin-left:300px;
+}
+
+.myanswer .attachment{
+    margin-left:500px;
+    font-size:10px;
 }
