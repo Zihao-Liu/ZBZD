@@ -23,13 +23,13 @@ import cn.lzh.zbzd.serviceimpl.UserServiceImpl;
 public class UserController {
     @Autowired
     private UserServiceImpl userServiceImpl;
-    
+
     @Autowired
     private User user;
 
     @Autowired
     private QuestionServiceImpl questionServiceImpl;
-    
+
     @RequestMapping(value = "/toSignUp", method = RequestMethod.GET)
     public String toSignUp(HttpServletRequest request) {
         return "signup";
@@ -81,7 +81,7 @@ public class UserController {
             }
         }
         if (userServiceImpl.checkExistUsername(request.getParameter("username")) == null) {
-            //User user = new User();
+            // User user = new User();
             user.setCreateTime(new Date());
             user.setModifiedTime(user.getCreateTime());
             user.setUsername(request.getParameter("username"));
@@ -97,7 +97,7 @@ public class UserController {
         }
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
-        return "index";
+        return "forward:/";
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
@@ -137,32 +137,30 @@ public class UserController {
 
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
-        return "index";
+        return "forward:/";
     }
 
     @RequestMapping(value = "/signOut", method = RequestMethod.GET)
     public String signOut(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute("user");
-        return "index";
+        return "forward:/";
     }
-    
-    @RequestMapping(value="/personal",method=RequestMethod.GET)
+
+    @RequestMapping(value = "/personal", method = RequestMethod.GET)
     public String personal(HttpServletRequest request) {
         HttpSession session;
         session = request.getSession();
-        user = (User)session.getAttribute("user");
+        user = (User) session.getAttribute("user");
         List<Question> questions = questionServiceImpl.listAllQuestionByUserId(user.getId());
-        int curPage =Integer.parseInt(request.getParameter("curPage"));
+        int curPage = Integer.parseInt(request.getParameter("curPage"));
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-        int totalPage = questions.size()/pageSize;
-        System.out.println("total:"+totalPage);
-        if(questions.size()%pageSize!=0)
-            totalPage+=1;
-        System.out.println("total:"+totalPage);
-        int front = (curPage-1)*pageSize;
-        int end = front+pageSize<=questions.size()?front+pageSize:questions.size();
-        questions=questions.subList(front,end);
+        int totalPage = questions.size() / pageSize;
+        if (questions.size() % pageSize != 0)
+            totalPage += 1;
+        int front = (curPage - 1) * pageSize;
+        int end = front + pageSize <= questions.size() ? front + pageSize : questions.size();
+        questions = questions.subList(front, end);
         request.setAttribute("curPage", curPage);
         request.setAttribute("questions", questions);
         request.setAttribute("totalPage", totalPage);

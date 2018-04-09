@@ -4,28 +4,31 @@
 
 <mapper namespace="cn.lzh.zbzd.dao.QuestionBelongTagDao">
 
-    <resultMap type="cn.lzh.zbzd.model.QuestionBelongTag" id="BaseResultMap">
-       <id column="pk_id" property="id" jdbcType="BIGINT"/>
-       <result column="gmt_create" property="createTime" jdbcType="DATE"/>
-       <result column="gmt_modified" property="modifiedTime" jdbcType="DATE"/>
-       <result column="tag_id" property="tagId" jdbcType="BIGINT"/>
-       <result column="question_id" property="questionId" jdbcType="BIGINT"/>
-    </resultMap>
-    
-    
-    <select id="listQuestionByTagId"  parameterType="long" resultType="cn.lzh.zbzd.model.Question">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, title, content, 
-        is_anonymous as isAnonymous, user_id as userId
-        from question
-        where pk_id in(
-              select question_id
-              from question_belong_tag
-              where tag_id = #{tagId}) 
-    </select>
-    
-    <insert id="insertQuestionBelongTag" parameterType="cn.lzh.zbzd.model.QuestionBelongTag" keyProperty="id">
-        insert 
-        into question_belong_tag(gmt_create,gmt_modified,tag_id,question_id)
-        values(#{createTime},#{modifiedTime},#{tagId},#{questionId})
-    </insert>
+	<resultMap type="cn.lzh.zbzd.model.QuestionBelongTag" id="BaseResultMap">
+		<id column="pk_id" property="id" jdbcType="BIGINT" />
+		<result column="gmt_create" property="createTime" jdbcType="DATE" />
+		<result column="gmt_modified" property="modifiedTime" jdbcType="DATE" />
+		<result column="tag_id" property="tagId" jdbcType="BIGINT" />
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
+	</resultMap>
+
+
+	<select id="listQuestionByTagId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Question">
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		title, content,
+		is_anonymous as isAnonymous, user_id as userId
+		from question
+		where pk_id in(
+		select question_id
+		from question_belong_tag
+		where tag_id = #{tagId})
+	</select>
+
+	<insert id="insertQuestionBelongTag" parameterType="cn.lzh.zbzd.model.QuestionBelongTag"
+		keyProperty="id">
+		insert
+		into question_belong_tag(gmt_create,gmt_modified,tag_id,question_id)
+		values(#{createTime},#{modifiedTime},#{tagId},#{questionId})
+	</insert>
 </mapper>

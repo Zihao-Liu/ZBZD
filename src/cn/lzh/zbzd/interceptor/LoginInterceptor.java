@@ -16,21 +16,23 @@ public class LoginInterceptor implements HandlerInterceptor {
         List<String> forbiddenURLS = new ArrayList<String>();
         forbiddenURLS.add("/questionController/postQuestion");
         forbiddenURLS.add("/userController/personal");
-        for(String forbiddenURL:forbiddenURLS) {
-            if(requestURL.contains(forbiddenURL) && null == user) {
+        forbiddenURLS.add("/editQuestionAnonymous");
+        for (String forbiddenURL : forbiddenURLS) {
+            if (requestURL.contains(forbiddenURL) && null == user) {
                 response.sendRedirect("/zbzd/userController/toSignIn");
                 return false;
             }
         }
-
         return true;
     }
 
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
-       
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o,
+            ModelAndView modelAndView) throws Exception {
+
     }
 
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
-        
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e)
+            throws Exception {
+
     }
 }

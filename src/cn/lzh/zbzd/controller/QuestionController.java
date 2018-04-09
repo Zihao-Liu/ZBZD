@@ -16,6 +16,7 @@ import cn.lzh.zbzd.model.User;
 import cn.lzh.zbzd.serviceimpl.QuestionBelongTagServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionServiceImpl;
 import cn.lzh.zbzd.serviceimpl.TagServiceImpl;
+import cn.lzh.zbzd.serviceimpl.UserServiceImpl;
 
 @Controller
 @RequestMapping("/questionController")
@@ -25,13 +26,16 @@ public class QuestionController {
 
     @Autowired
     QuestionServiceImpl questionServiceImpl;
-    
+
     @Autowired
     QuestionBelongTagServiceImpl questionBelongTagServiceImpl;
     
     @Autowired
-    User user;
+    UserServiceImpl userServiceImpl;
     
+    @Autowired
+    User user;
+
     @Autowired
     Question question;
 
@@ -52,9 +56,9 @@ public class QuestionController {
         }
         long tagId = Long.parseLong(request.getParameter("tag"));
         String tagName = tagServiceImpl.getTagById(tagId).getName();
-        if(tagId==0)
-            tagName="无";
-        
+        if (tagId == 0)
+            tagName = "无";
+
         Byte isAnonymous;
         if (request.getParameter("isAnonymous") != null)
             isAnonymous = 1;
@@ -67,8 +71,7 @@ public class QuestionController {
         question.setContent(content);
         question.setIsAnonymous(isAnonymous);
         HttpSession session = request.getSession();
-        user = (User)session.getAttribute("user");
-        System.out.println(user.getId());
+        user = (User) session.getAttribute("user");
         question.setUserId(user.getId());
         questionServiceImpl.postNewQuestion(question);
         questionBelongTagServiceImpl.insertQuestionBelongTag(question.getId(), tagId);
@@ -77,4 +80,39 @@ public class QuestionController {
         request.setAttribute("poster", user);
         return "question";
     }
+    
+    @RequestMapping(value="/toQuestion",method=RequestMethod.GET)
+    public String toQuestion(HttpServletRequest request) {
+        Long id = Long.parseLong(request.getParameter("id"));
+        question=questionServiceImpl.getQuestionById(id);
+        request.setAttribute("question", question);
+        user=userServiceImpl.getUserById(question.getUserId());
+        request.setAttribute("poster", user);
+        return "question";
+    }
+    
+    @RequestMapping(value="/editQuestionAnonymous",method=RequestMethod.GET)
+    public String editQuestionAnonymous(HttpServletRequest request) {
+        Long id =Long.parseLong(request.getParameter("id"));
+        question = questionServiceImpl.getQuestionById(id);
+        
+        HttpSession session = request.getSession();
+        if(((User)session.getAttribute("user")).getId()==question.getUserId()) {
+            questionServiceImpl.getQuestionById(id);
+            if(question.getIsAnonymous()==1) {
+                Byte b = 0;
+                question.setIsAnonymous(b);
+            }else {
+                Byte b = 1;
+                question.setIsAnonymous(b);
+            }
+            question.setModifiedTime(new Date());
+            questionServiceImpl.updateQuestion(question);
+            request.setAttribute("question", question);
+        }else {
+            request.setAttribute("error", "您没有权限");
+        }
+        return "forward:/questionController/toQuestion";
+    }
+    
 }

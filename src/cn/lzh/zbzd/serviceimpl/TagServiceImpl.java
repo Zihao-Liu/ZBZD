@@ -10,7 +10,7 @@ import cn.lzh.zbzd.model.Tag;
 import cn.lzh.zbzd.service.TagService;
 
 @Service
-public class TagServiceImpl implements TagService{
+public class TagServiceImpl implements TagService {
     @Autowired
     private TagDao tagDao;
 
@@ -39,6 +39,5 @@ public class TagServiceImpl implements TagService{
     public Tag getTagById(long id) {
         return tagDao.getTagbyId(id);
     }
-    
-    
+
 }

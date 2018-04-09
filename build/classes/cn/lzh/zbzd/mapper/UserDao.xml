@@ -13,26 +13,36 @@
 		<result column="gender" property="gender" jdbcType="TINYINT" />
 		<result column="introduction" property="introduction" jdbcType="VARCHAR" />
 	</resultMap>
-	
-	<insert id="insertUser" parameterType="cn.lzh.zbzd.model.User" keyProperty="id">
-		INSERT INTO USER(gmt_create,gmt_modified,uk_username,password,
+
+	<insert id="insertUser" parameterType="cn.lzh.zbzd.model.User"
+		keyProperty="id">
+		INSERT INTO
+		USER(gmt_create,gmt_modified,uk_username,password,
 		nickname,privacy,gender,introduction)
-		VALUES(#{createTime}, #{modifiedTime}, #{username},#{password},
+		VALUES(#{createTime},
+		#{modifiedTime}, #{username},#{password},
 		#{nickname},#{privacy},#{gender},#{introduction})
 	</insert>
 
 	<select id="getUserById" parameterType="long" resultType="cn.lzh.zbzd.model.User">
-		SELECT *
+		SELECT
+		pk_id as id, gmt_create as createTime,gmt_modified
+		as modifiedTime,
+		uk_username as
+		username,password,nickname,privacy,gender,introduction
 		FROM USER
 		WHERE pk_id = #{id}
 	</select>
 
 	<select id="getUserByUsername" parameterType="java.lang.String"
 		resultType="cn.lzh.zbzd.model.User">
-		SELECT pk_id as id, gmt_create as createTime,gmt_modified as modifiedTime,
-		uk_username as username,password,nickname,privacy,gender,introduction
+		SELECT pk_id as id, gmt_create as createTime,gmt_modified
+		as modifiedTime,
+		uk_username as
+		username,password,nickname,privacy,gender,introduction
 		FROM USER
-		WHERE uk_username = #{username}
+		WHERE
+		uk_username = #{username}
 	</select>
 
 
@@ -51,9 +61,11 @@
 		password = #{user.password},
 		nickname = #{user.nickName},
 		privacy = #{user.privacy},
-		gender = #{user.gender},
+		gender =
+		#{user.gender},
 		introduction = #{user.introduction}
-		WHERE pk_id =#{user.id}
+		WHERE pk_id
+		=#{user.id}
 	</update>
 
 </mapper>

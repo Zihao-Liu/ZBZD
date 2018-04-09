@@ -26,17 +26,16 @@
             <c:when test="${1==question.isAnonymous}">
                                                      匿名发布
                 <c:if test="${poster.id==sessionScope.user.id}">
-                    <input type="button" value="取消匿名" class="ano"/>
+                    <input type="button" value="取消匿名" class="ano" onclick="window.location.href='/zbzd/questionController/editQuestionAnonymous?act=0&id=${question.id}'"/>
                 </c:if>
             </c:when>
             <c:otherwise>
-               <a href="#">提问人:${poster.username}</a>&nbsp;
+               <a href="#">提问人:${poster.nickname}</a>&nbsp;
                 <c:if test="${poster.id==sessionScope.user.id}">
-                    <input type="button" value="匿名" class="ano"/>
+                    <input type="button" value="匿名" class="ano" onclick="window.location.href='/zbzd/questionController/editQuestionAnonymous?act=1&id=${question.id}'"/>
                 </c:if>          
             </c:otherwise>
         </c:choose>
-        
         </p>
     </div>
 

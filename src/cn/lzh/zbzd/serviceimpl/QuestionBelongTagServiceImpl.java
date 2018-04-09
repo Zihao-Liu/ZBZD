@@ -12,9 +12,10 @@ import cn.lzh.zbzd.model.QuestionBelongTag;
 import cn.lzh.zbzd.service.QuestionBelongTagService;
 
 @Service
-public class QuestionBelongTagServiceImpl implements QuestionBelongTagService{
+public class QuestionBelongTagServiceImpl implements QuestionBelongTagService {
     @Autowired
     QuestionBelongTagDao questionBelongTagDao;
+
     @Autowired
     QuestionBelongTag questionBelongTag;
 
@@ -29,9 +30,7 @@ public class QuestionBelongTagServiceImpl implements QuestionBelongTagService{
 
     @Override
     public List<Question> listQuestionByTagId(long tagId) {
-         return questionBelongTagDao.listQuestionByTagId(tagId);
+        return questionBelongTagDao.listQuestionByTagId(tagId);
     }
-    
-    
 
 }

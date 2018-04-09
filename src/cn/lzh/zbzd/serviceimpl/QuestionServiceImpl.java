@@ -10,7 +10,7 @@ import cn.lzh.zbzd.model.Question;
 import cn.lzh.zbzd.service.QuestionService;
 
 @Service
-public class QuestionServiceImpl implements QuestionService{
+public class QuestionServiceImpl implements QuestionService {
     @Autowired
     QuestionDao questionDao;
 
@@ -33,5 +33,15 @@ public class QuestionServiceImpl implements QuestionService{
     public List<Question> listAllQuestionByUserId(long userId) {
         return questionDao.listQuestionByUserId(userId);
     }
-    
+
+    @Override
+    public Question getQuestionById(long id) {
+        return questionDao.getQuestionById(id);
+    }
+
+    @Override
+    public int updateQuestion(Question question) {
+        return questionDao.updateQuestion(question);
+    }
+
 }
