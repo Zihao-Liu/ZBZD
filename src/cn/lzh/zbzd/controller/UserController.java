@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cn.lzh.zbzd.model.Answer;
 import cn.lzh.zbzd.model.Question;
 import cn.lzh.zbzd.model.User;
+import cn.lzh.zbzd.serviceimpl.AnswerServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionServiceImpl;
 import cn.lzh.zbzd.serviceimpl.UserServiceImpl;
 
@@ -29,6 +31,9 @@ public class UserController {
 
     @Autowired
     private QuestionServiceImpl questionServiceImpl;
+    
+    @Autowired
+    private AnswerServiceImpl answerServiceImpl;
 
     @RequestMapping(value = "/toSignUp", method = RequestMethod.GET)
     public String toSignUp(HttpServletRequest request) {
@@ -152,18 +157,39 @@ public class UserController {
         HttpSession session;
         session = request.getSession();
         user = (User) session.getAttribute("user");
-        List<Question> questions = questionServiceImpl.listAllQuestionByUserId(user.getId());
-        int curPage = Integer.parseInt(request.getParameter("curPage"));
-        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-        int totalPage = questions.size() / pageSize;
-        if (questions.size() % pageSize != 0)
-            totalPage += 1;
-        int front = (curPage - 1) * pageSize;
-        int end = front + pageSize <= questions.size() ? front + pageSize : questions.size();
-        questions = questions.subList(front, end);
-        request.setAttribute("curPage", curPage);
-        request.setAttribute("questions", questions);
-        request.setAttribute("totalPage", totalPage);
+        
+        int curPage=1;
+        if(request.getParameter("curPage")!=null)
+            curPage = Integer.parseInt(request.getParameter("curPage"));
+        int pageSize = 2;
+        if(request.getParameter("pageSize")!=null)
+            pageSize=Integer.parseInt(request.getParameter("pageSize"));
+        
+        
+        String act=request.getParameter("act");
+        if(act==null||act.equals("que")) {
+            List<Question> questions = questionServiceImpl.listAllQuestionByUserId(user.getId());
+            int totalPage = questions.size() / pageSize;
+            if (questions.size() % pageSize != 0)
+                totalPage += 1;
+            int front = (curPage - 1) * pageSize;
+            int end = front + pageSize <= questions.size() ? front + pageSize : questions.size();
+            questions = questions.subList(front, end);
+            request.setAttribute("curPage", curPage);
+            request.setAttribute("questions", questions);
+            request.setAttribute("totalPage", totalPage);
+        }else {
+            List<Answer> answers=answerServiceImpl.listAnswerByUserId(user.getId());
+            int totalPage = answers.size() / pageSize;
+            if (answers.size() % pageSize != 0)
+                totalPage += 1;
+            int front = (curPage - 1) * pageSize;
+            int end = front + pageSize <= answers.size() ? front + pageSize : answers.size();
+            answers = answers.subList(front, end);
+            request.setAttribute("curPage", curPage);
+            request.setAttribute("answers", answers);
+            request.setAttribute("totalPage", totalPage);
+        }
         return "personal";
     }
 }

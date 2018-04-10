@@ -38,25 +38,53 @@
 	    </p>
     </div>
     
+    <ul class="actbar">
+        <li><a href="/zbzd/userController/personal?act=que">我的问题</a></li>
+        <li><a href="/zbzd/userController/personal?act=ans">我的回答</a></li>
+    </ul>
+    <hr/>
+    <c:choose>
+    <c:when test="${not empty questions}">
+	    <div class="questionbar">
+	        <c:forEach var="question" items="${questions}">
+	            <div class="onequestion">
+	               <p><a href="/zbzd/questionController/toQuestion?id=${question.id}">${question.title}</a></p>
+	               <p class="content">${question.content}</p>
+	               <p class="attachment">发布于：${question.createTime}</p>
+	            </div>
+	        </c:forEach>
+	        <div class="pagetool">
+	            <c:if test="${curPage>1}">
+	                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage-1}&pageSize=2">上一页&nbsp;</a>
+	            </c:if>
+	                                当前页：${curPage} &nbsp;总页数：${totalPage}
+	            <c:if test="${curPage<totalPage}">
+	                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage+1}&pageSize=2">&nbsp;下一页</a>
+	            </c:if>
+	        </div>
+	    </div>
+    </c:when>
     
-    <div class="questionbar">
-        <c:forEach var="question" items="${questions}">
-            <div class="onequestion">
-               <p><a href="/zbzd/questionController/toQuestion?id=${question.id}">${question.title}</a></p>
-               <p class="content">${question.content}</p>
-               <p class="attachment">发布于：${question.createTime}</p>
-            </div>
-        </c:forEach>
-        <div class="pagetool">
-            <c:if test="${curPage>1}">
-                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage-1}&pageSize=2">上一页&nbsp;</a>
-            </c:if>
-                                当前页：${curPage} &nbsp;总页数：${totalPage}
-            <c:if test="${curPage<totalPage}">
-                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage+1}&pageSize=2">&nbsp;下一页</a>
-            </c:if>
-        </div>
-    </div>
+    <c:when test="${not empty answers}">
+	    <div class="answerbar">
+	        <c:forEach var="answer" items="${answers}">
+	            <div class="oneanswer">
+	               <p class="content"><a href="/zbzd/questionController/toQuestion?id=${answer.questionId}">${answer.content}</a></p>
+	               <p class="attachment">最后修改于：${answer.modifiedTime}</p>
+	            </div>
+	        </c:forEach>
+	        <div class="pagetool">
+	            <c:if test="${curPage>1}">
+	                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage-1}&pageSize=2">上一页&nbsp;</a>
+	            </c:if>
+	                                当前页：${curPage} &nbsp;总页数：${totalPage}
+	            <c:if test="${curPage<totalPage}">
+	                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage+1}&pageSize=2">&nbsp;下一页</a>
+	            </c:if>
+	        </div>
+	    </div>
+    </c:when>
+    </c:choose>
 </body>
 
 </html>

@@ -16,4 +16,5 @@ public interface QuestionService {
     public Question getQuestionById(long id);
     
     public int updateQuestion(Question question);
+    
 }
