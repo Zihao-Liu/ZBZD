@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.lzh.zbzd.model.Answer;
 import cn.lzh.zbzd.model.Question;
+import cn.lzh.zbzd.model.Tag;
 import cn.lzh.zbzd.model.User;
 import cn.lzh.zbzd.serviceimpl.AnswerServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionBelongTagServiceImpl;
@@ -47,6 +48,9 @@ public class QuestionController {
     
     @Autowired
     Question question;
+    
+    @Autowired
+    Tag tag;
 
     @RequestMapping(value = "/toPostQuestion", method = RequestMethod.GET)
     public String toPostQuestion(HttpServletRequest request) {
@@ -109,8 +113,11 @@ public class QuestionController {
         }
         
         List<Answer> answers=answerServiceImpl.listAnswerByQuestionId(id);
-        int curPage = request.getParameter("curPage")==null?1:Integer.parseInt(request.getParameter("curPage"));
-        int pageSize = request.getParameter("pageSize")==null?10:Integer.parseInt(request.getParameter("pageSize"));
+        int curPage=1;
+        if(request.getParameter("curPage")!=null)
+            curPage = Integer.parseInt(request.getParameter("curPage"));
+        int pageSize = 5;
+        
         int totalPage = answers.size() / pageSize;
         if (answers.size() % pageSize != 0)
             totalPage += 1;
@@ -120,6 +127,8 @@ public class QuestionController {
         request.setAttribute("answers", answers);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("curPage", curPage);
+        tag = questionBelongTagServiceImpl.getTagIdByQuestionId(question.getId());
+        request.setAttribute("tagName", tag.getName());
         return "question";
     }
     

@@ -17,18 +17,18 @@
 	<select id="getQuestionById" parameterType="long"
 		resultType="cn.lzh.zbzd.model.Question">
 		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
-		title, content,
-		is_anonymous as isAnonymous, user_id as userId
-		from question
+        title, content,
+        is_anonymous as isAnonymous, user_id as userId,answerCount
+        from question left outer join  ((select question_id as pk_id, count(*) as answerCount from answer group by question_id) as A) using(pk_id)
 		where pk_id = #{id}
 	</select>
 
 	<select id="listQuestionByUserId" parameterType="long"
 		resultType="cn.lzh.zbzd.model.Question">
 		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
-		title, content,
-		is_anonymous as isAnonymous, user_id as userId
-		from question
+        title, content,
+        is_anonymous as isAnonymous, user_id as userId,answerCount
+        from question left outer join  ((select question_id as pk_id, count(*) as answerCount from answer group by question_id) as A) using(pk_id)
 		where user_id = #{userId}
 	</select>
 
@@ -46,12 +46,20 @@
 	</insert>
 
 	<select id="listAllQuestionOrderByModifiedTime" resultType="cn.lzh.zbzd.model.Question">
-		select pk_id as id, gmt_create as createTime, gmt_modified as
-		modifiedTime, title, content,
-		is_anonymous as isAnonymous, user_id as userId
-		from question
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+        title, content,
+        is_anonymous as isAnonymous, user_id as userId,answerCount
+        from question left outer join  ((select question_id as pk_id, count(*) as answerCount from answer group by question_id) as A) using(pk_id)
 		order by gmt_modified desc
 	</select>
+	
+	<select id="listAllQuestionOrderByAnswerCount" resultType="cn.lzh.zbzd.model.Question">
+        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+        title, content,
+        is_anonymous as isAnonymous, user_id as userId,answerCount
+        from question left outer join  ((select question_id as pk_id, count(*) as answerCount from answer group by question_id) as A) using(pk_id)
+        order by answerCount desc
+    </select>
 	
 	<update id="updateQuestion" parameterType="cn.lzh.zbzd.model.Question">
 	   update question

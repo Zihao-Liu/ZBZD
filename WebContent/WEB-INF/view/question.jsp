@@ -7,7 +7,7 @@
 
 <head>
 
-<title>首页</title>
+<title>问题</title>
 <meta http-equiv="Content-Type" content="text/html charset=gb2312">
 
 <link href="<%=request.getContextPath()%>/css/header.css"
@@ -19,7 +19,7 @@
 <body>
 	<%@include file="header.jsp"%>
 	<div class="questioncontent">
-		<p>来自话题:${tagName}</p>
+		<p>来自话题:&nbsp;${tagName}</p>
 		<h1>${question.title}</h1>
 		<p>${question.content}</p>
 		<input type="button" value="关注问题">
@@ -82,7 +82,6 @@
 
 	<br />
 	<hr />
-	
 	<div class="contentbar">
 		<h1>其他回答</h1>
 		<c:forEach var="answer" items="${answers}">

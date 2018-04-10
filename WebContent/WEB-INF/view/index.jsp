@@ -16,21 +16,26 @@
 
 <body>
     <%@include file="header.jsp" %>
+    <ul class="actbar">
+        <li><a href="/zbzd/?act=time">最新问题</a></li>
+        <li><a href="/zbzd/?act=count">热门问题</a></li>
+    </ul>
+    <hr />
     <div class="questionbar">
         <c:forEach var="question" items="${questions}">
             <div class="onequestion">
                <p><a href="/zbzd/questionController/toQuestion?id=${question.id}">${question.title}</a></p>
                <p class="content">${question.content}</p>
-               <p class="attachment">发布于：${question.createTime}</p>
+               <p class="attachment">发布于：${question.createTime} &nbsp;&nbsp;回答人数：${question.answerCount}</p>
             </div>
         </c:forEach>
         <div class="pagetool">
             <c:if test="${curPage>1}">
-                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage-1}&pageSize=2">上一页&nbsp;</a>
+                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage-1}">上一页&nbsp;</a>
             </c:if>
                                 当前页：${curPage} &nbsp;总页数：${totalPage}
             <c:if test="${curPage<totalPage}">
-                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage+1}&pageSize=2">&nbsp;下一页</a>
+                <a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=${curPage+1}">&nbsp;下一页</a>
             </c:if>
         </div>
     </div>

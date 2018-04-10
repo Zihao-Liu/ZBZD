@@ -15,20 +15,59 @@
 
 	<select id="listQuestionByTagId" parameterType="long"
 		resultType="cn.lzh.zbzd.model.Question">
-		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,
 		title, content,
-		is_anonymous as isAnonymous, user_id as userId
-		from question
+		is_anonymous as isAnonymous, user_id as userId,answerCount
+		from question left outer join ((select question_id as pk_id, count(*) as
+		answerCount from answer group by question_id) as A) using(pk_id)
 		where pk_id in(
 		select question_id
 		from question_belong_tag
 		where tag_id = #{tagId})
 	</select>
 
+	<select id="listQuestionByTagIdOrderByModifiedTime"
+		parameterType="long" resultType="cn.lzh.zbzd.model.Question">
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		title, content,
+		is_anonymous as isAnonymous, user_id as userId,answerCount
+		from question left outer join ((select question_id as pk_id, count(*) as
+		answerCount from answer group by question_id) as A) using(pk_id)
+		where pk_id in(
+		select question_id
+		from question_belong_tag
+		where tag_id = #{tagId})
+		order by gmt_modified desc
+	</select>
+
+	<select id="listQuestionByTagIdOrderByAnswerCount"
+		parameterType="long" resultType="cn.lzh.zbzd.model.Question">
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		title, content,
+		is_anonymous as isAnonymous, user_id as userId,answerCount
+		from question left outer join ((select question_id as pk_id, count(*) as
+		answerCount from answer group by question_id) as A) using(pk_id)
+		where pk_id in(
+		select question_id
+		from question_belong_tag
+		where tag_id = #{tagId})
+		order by answerCount desc
+	</select>
+
 	<insert id="insertQuestionBelongTag" parameterType="cn.lzh.zbzd.model.QuestionBelongTag"
 		keyProperty="id">
 		insert
-		into question_belong_tag(gmt_create,gmt_modified,tag_id,question_id)
+		into
+		question_belong_tag(gmt_create,gmt_modified,tag_id,question_id)
 		values(#{createTime},#{modifiedTime},#{tagId},#{questionId})
 	</insert>
+
+	<select id="getTagIdByQuestionId" resultType="cn.lzh.zbzd.model.Tag" parameterType="long">
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		name, father_id as fatherId
+		from tag natural join (select tag_id as pk_id from question natural join
+		(select tag_id,question_id as pk_id from question_belong_tag where
+		question_id =#{questionId})as Q )as T
+	</select>
 </mapper>

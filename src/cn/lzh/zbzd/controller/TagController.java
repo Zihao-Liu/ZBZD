@@ -48,9 +48,17 @@ public class TagController {
     @RequestMapping(value = "/questionBelongTag", method = RequestMethod.GET)
     public String questionBelongTag(HttpServletRequest request) {
         long tagId = Long.parseLong(request.getParameter("id"));
-        int curPage = Integer.parseInt(request.getParameter("curPage"));
-        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+        int curPage=1;
+        if(request.getParameter("curPage")!=null)
+            curPage = Integer.parseInt(request.getParameter("curPage"));
+        int pageSize = 5;
         List<Question> questions = questionBelongTagServiceImpl.listQuestionByTagId(tagId);
+        String act=request.getParameter("act");
+        if(act==null||act.equals("time"))
+            questions= questionBelongTagServiceImpl.listQuestionByTagIdOrderByModifiedTime(tagId);
+        else 
+            questions= questionBelongTagServiceImpl.listQuestionByTagIdOrderByAnswerCount(tagId);
+        
         int totalPage = questions.size() / pageSize;
         if (questions.size() % pageSize != 0)
             totalPage += 1;

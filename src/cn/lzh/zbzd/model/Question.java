@@ -25,7 +25,8 @@ public class Question implements Serializable {
     private String content;
     private Byte isAnonymous;
     private long userId;
-
+    private long answerCount;
+    
     public long getId() {
         return id;
     }
@@ -84,6 +85,14 @@ public class Question implements Serializable {
 
     public static long getSerialversionuid() {
         return serialVersionUID;
+    }
+
+    public long getAnswerCount() {
+        return answerCount;
+    }
+
+    public void setAnswerCount(long answerCount) {
+        this.answerCount = answerCount;
     }
 
 }

@@ -161,10 +161,7 @@ public class UserController {
         int curPage=1;
         if(request.getParameter("curPage")!=null)
             curPage = Integer.parseInt(request.getParameter("curPage"));
-        int pageSize = 2;
-        if(request.getParameter("pageSize")!=null)
-            pageSize=Integer.parseInt(request.getParameter("pageSize"));
-        
+        int pageSize = 5;
         
         String act=request.getParameter("act");
         if(act==null||act.equals("que")) {

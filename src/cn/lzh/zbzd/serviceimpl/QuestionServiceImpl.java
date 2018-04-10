@@ -44,4 +44,9 @@ public class QuestionServiceImpl implements QuestionService {
         return questionDao.updateQuestion(question);
     }
 
+    @Override
+    public List<Question> listAllQuestionOrderByAnswerCount() {
+        return questionDao.listAllQuestionOrderByAnswerCount();
+    }
+
 }

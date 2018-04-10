@@ -7,7 +7,7 @@
 
 <head>
 
-<title>首页</title>
+<title>提问</title>
 <meta http-equiv="Content-Type" content="text/html charset=gb2312">
 
 <link href="<%=request.getContextPath() %>/css/header.css" type="text/css" rel="stylesheet" media="all" charset="utf-8" />

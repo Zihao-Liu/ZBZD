@@ -29,11 +29,11 @@
 	    <h1>×Ó»°Ìâ</h1>
 	    <ul>
 	       <c:if test="${not empty tag }">
-	           <li class="subtag"><input type="button" value="${tag.name}" class="but" onclick="window.location.href='/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=1&pageSize=2'"/></li>
+	           <li class="subtag"><input type="button" value="${tag.name}" class="but" onclick="window.location.href='/zbzd/tagController/questionBelongTag?id=${tag.id}&curPage=1'"/></li>
 	       </c:if>
 	       <c:if test="${not empty subtags}">
 			  <c:forEach var="subtag" items="${subtags}" >
-			     <li class="subtag"><input type="button" value="${subtag.name}" class="but" onclick="window.location.href='/zbzd/tagController/questionBelongTag?id=${subtag.id}&curPage=1&pageSize=2'"/></li>
+			     <li class="subtag"><input type="button" value="${subtag.name}" class="but" onclick="window.location.href='/zbzd/tagController/questionBelongTag?id=${subtag.id}&curPage=1'"/></li>
 			  </c:forEach>
 		    </c:if>
 	    </ul>

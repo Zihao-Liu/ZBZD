@@ -32,3 +32,19 @@ p{
     font-size:15px;
     text-align:center;
 }
+.actbar{
+    margin-left:260px;
+    margin-top:50px;
+    height:30px;
+    padding-top:9px;
+    width:700px;
+}
+.actbar li{
+    display:inline;
+    margin-right:20px;
+    border:solid #5555;
+}
+.actbar li:hover{
+    color:white;
+    background-color:#5555;
+}
