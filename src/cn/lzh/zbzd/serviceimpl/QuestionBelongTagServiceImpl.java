@@ -43,7 +43,7 @@ public class QuestionBelongTagServiceImpl implements QuestionBelongTagService {
     public List<Question> listQuestionByTagIdOrderByAnswerCount(long tagId) {
         return questionBelongTagDao.listQuestionByTagIdOrderByAnswerCount(tagId);
     }
-    
+
     @Override
     public Tag getTagIdByQuestionId(long questionId) {
         return questionBelongTagDao.getTagIdByQuestionId(questionId);

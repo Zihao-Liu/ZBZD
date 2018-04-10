@@ -10,10 +10,10 @@ public interface QuestionBelongTagDao {
     public List<Question> listQuestionByTagId(long tagId);
 
     public int insertQuestionBelongTag(QuestionBelongTag questionBelongTag);
-    
+
     public List<Question> listQuestionByTagIdOrderByModifiedTime(long tagId);
-    
+
     public List<Question> listQuestionByTagIdOrderByAnswerCount(long tagId);
-    
+
     public Tag getTagIdByQuestionId(long questionId);
 }

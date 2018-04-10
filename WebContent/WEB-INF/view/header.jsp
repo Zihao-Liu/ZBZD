@@ -17,9 +17,10 @@
 	<div class="searchbar">
 		<form action="" method="post" class="searchbar">
 			<input type="text" name="search" placeholder="搜索你感兴趣的内容" /> <input
-				type="submit" value="搜索" class="searchbutton"/>
+				type="submit" value="搜索" class="searchbutton" />
 		</form>
-		<input type="button" value="提问" class="question" onclick="window.location.href='/zbzd/questionController/toPostQuestion'"/>
+		<input type="button" value="提问" class="question"
+			onclick="window.location.href='/zbzd/questionController/toPostQuestion'" />
 	</div>
 	<div class="userinfo">
 		<c:choose>
@@ -34,12 +35,12 @@
 				</form>
 			</c:when>
 			<c:otherwise>
-			    <div class= "user">${user.username}
-			         <div class="usermenu">
-			             <a href="/zbzd/userController/personal?curPage=1&pageSize=5">个人</a>
-			             <a href="/zbzd/userController/signOut">退出</a>
-			         </div>
-			    </div>
+				<div class="user">${user.username}
+					<div class="usermenu">
+						<a href="/zbzd/userController/personal?curPage=1&pageSize=5">个人</a>
+						<a href="/zbzd/userController/signOut">退出</a>
+					</div>
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</div>

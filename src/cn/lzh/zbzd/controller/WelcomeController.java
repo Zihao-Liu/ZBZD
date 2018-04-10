@@ -20,11 +20,11 @@ public class WelcomeController {
     @RequestMapping(value = "/")
     public String toIndex(HttpServletRequest request) {
         List<Question> questions;
-        String act=request.getParameter("act");
-        if(act==null||act.equals("time"))
-            questions= questionServiceImpl.listAllQuestionOrderByModifiedTime();
-        else 
-            questions= questionServiceImpl.listAllQuestionOrderByAnswerCount();
+        String act = request.getParameter("act");
+        if (act == null || act.equals("time"))
+            questions = questionServiceImpl.listAllQuestionOrderByModifiedTime();
+        else
+            questions = questionServiceImpl.listAllQuestionOrderByAnswerCount();
         int curPage = 1;
         int pageSize = 10;
         int totalPage = questions.size() / pageSize;

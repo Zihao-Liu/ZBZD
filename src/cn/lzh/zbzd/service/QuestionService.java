@@ -10,13 +10,13 @@ public interface QuestionService {
     public int deleteQuestion(long id);
 
     public List<Question> listAllQuestionOrderByModifiedTime();
-    
+
     public List<Question> listAllQuestionOrderByAnswerCount();
 
     public List<Question> listAllQuestionByUserId(long userId);
-    
+
     public Question getQuestionById(long id);
-    
+
     public int updateQuestion(Question question);
-    
+
 }

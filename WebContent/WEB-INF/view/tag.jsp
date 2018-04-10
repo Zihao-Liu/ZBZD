@@ -21,8 +21,10 @@
 	<h1>${tag.name}</h1>
 
 	<ul class="actbar">
-		<li><a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&act=time">最新问题</a></li>
-		<li><a href="/zbzd/tagController/questionBelongTag?id=${tag.id}&act=count">热门问题</a></li>
+		<li><a
+			href="/zbzd/tagController/questionBelongTag?id=${tag.id}&act=time">最新问题</a></li>
+		<li><a
+			href="/zbzd/tagController/questionBelongTag?id=${tag.id}&act=count">热门问题</a></li>
 	</ul>
 	<hr />
 	<div class="questionbar">

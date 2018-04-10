@@ -10,6 +10,6 @@ public interface UserService {
     public void signOut();
 
     public User checkExistUsername(String username);
-    
+
     public User getUserById(Long id);
 }

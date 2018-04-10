@@ -13,8 +13,10 @@
 	</resultMap>
 
 	<select id="listAllTag" resultType="cn.lzh.zbzd.model.Tag">
-		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
-		name, father_id as fatherId
+		select pk_id as id,
+		gmt_create as createTime, gmt_modified as modifiedTime,
+		name, father_id
+		as fatherId
 		from tag
 		where father_id != 0;
 	</select>
@@ -27,7 +29,8 @@
 	</select>
 
 	<select id="getTagbyId" parameterType="long" resultType="cn.lzh.zbzd.model.Tag">
-		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		select
+		pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
 		name, father_id as fatherId
 		from tag
 		where pk_id = #{id}
@@ -35,16 +38,19 @@
 
 	<select id="listSubTagByFatherId" parameterType="long"
 		resultType="cn.lzh.zbzd.model.Tag">
-		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,
 		name, father_id as fatherId
 		from tag
-		where father_id=#{fatherId}
+		where
+		father_id=#{fatherId}
 	</select>
 
 	<delete id="deleteTagById" parameterType="long">
 		delete
 		from tag
-		where pk_id =#{id}
+		where
+		pk_id =#{id}
 	</delete>
 
 </mapper>

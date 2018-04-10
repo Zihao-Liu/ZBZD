@@ -33,22 +33,22 @@ public class QuestionController {
 
     @Autowired
     QuestionBelongTagServiceImpl questionBelongTagServiceImpl;
-    
+
     @Autowired
     UserServiceImpl userServiceImpl;
-    
+
     @Autowired
     AnswerServiceImpl answerServiceImpl;
-    
+
     @Autowired
     User user;
-    
-    @Autowired 
+
+    @Autowired
     User visitor;
-    
+
     @Autowired
     Question question;
-    
+
     @Autowired
     Tag tag;
 
@@ -93,31 +93,31 @@ public class QuestionController {
         request.setAttribute("poster", user);
         return "question";
     }
-    
-    @RequestMapping(value="/toQuestion",method= {RequestMethod.GET,RequestMethod.POST})
+
+    @RequestMapping(value = "/toQuestion", method = { RequestMethod.GET, RequestMethod.POST })
     public String toQuestion(HttpServletRequest request) {
-        Long id= 0L;
-        if(request.getAttribute("id")!=null)
-            id=(Long)request.getAttribute("id");
+        Long id = 0L;
+        if (request.getAttribute("id") != null)
+            id = (Long) request.getAttribute("id");
         else
             id = Long.parseLong(request.getParameter("id"));
-        question=questionServiceImpl.getQuestionById(id);
+        question = questionServiceImpl.getQuestionById(id);
         request.setAttribute("question", question);
-        user=userServiceImpl.getUserById(question.getUserId());
+        user = userServiceImpl.getUserById(question.getUserId());
         request.setAttribute("poster", user);
-        
+
         HttpSession session = request.getSession();
-        if(session.getAttribute("user")!=null) {
-           visitor=(User)session.getAttribute("user");
-           request.setAttribute("myAnswer", answerServiceImpl.getAnswerByUserIdAndQuestionId(visitor.getId(), id));
+        if (session.getAttribute("user") != null) {
+            visitor = (User) session.getAttribute("user");
+            request.setAttribute("myAnswer", answerServiceImpl.getAnswerByUserIdAndQuestionId(visitor.getId(), id));
         }
-        
-        List<Answer> answers=answerServiceImpl.listAnswerByQuestionId(id);
-        int curPage=1;
-        if(request.getParameter("curPage")!=null)
+
+        List<Answer> answers = answerServiceImpl.listAnswerByQuestionId(id);
+        int curPage = 1;
+        if (request.getParameter("curPage") != null)
             curPage = Integer.parseInt(request.getParameter("curPage"));
         int pageSize = 5;
-        
+
         int totalPage = answers.size() / pageSize;
         if (answers.size() % pageSize != 0)
             totalPage += 1;
@@ -131,29 +131,29 @@ public class QuestionController {
         request.setAttribute("tagName", tag.getName());
         return "question";
     }
-    
-    @RequestMapping(value="/editQuestionAnonymous",method=RequestMethod.GET)
+
+    @RequestMapping(value = "/editQuestionAnonymous", method = RequestMethod.GET)
     public String editQuestionAnonymous(HttpServletRequest request) {
-        Long id =Long.parseLong(request.getParameter("id"));
+        Long id = Long.parseLong(request.getParameter("id"));
         question = questionServiceImpl.getQuestionById(id);
-        
+
         HttpSession session = request.getSession();
-        if(((User)session.getAttribute("user")).getId()==question.getUserId()) {
+        if (((User) session.getAttribute("user")).getId() == question.getUserId()) {
             questionServiceImpl.getQuestionById(id);
-            if(question.getIsAnonymous()==1) {
+            if (question.getIsAnonymous() == 1) {
                 Byte b = 0;
                 question.setIsAnonymous(b);
-            }else {
+            } else {
                 Byte b = 1;
                 question.setIsAnonymous(b);
             }
             question.setModifiedTime(new Date());
             questionServiceImpl.updateQuestion(question);
             request.setAttribute("question", question);
-        }else {
+        } else {
             request.setAttribute("error", "您没有权限");
         }
         return "forward:/questionController/toQuestion";
     }
-    
+
 }

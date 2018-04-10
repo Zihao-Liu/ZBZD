@@ -4,52 +4,68 @@
 
 <mapper namespace="cn.lzh.zbzd.dao.AnswerDao">
 
-    <resultMap type="cn.lzh.zbzd.model.Answer" id="BaseResultMap">
-        <id column="pk_id" property="id" jdbcType="BIGINT" />
-        <result column="gmt_create" property="createTime" jdbcType="DATE" />
-        <result column="gmt_modified" property="modifiedTime" jdbcType="DATE" />
-        <result column="content" property="content" jdbcType="VARCHAR" />
-        <result column="is_anonymous" property="isAnonymous" jdbcType="TINYINT" />
-        <result column="question_id" property="questionId" jdbcType="BIGINT"/>
-        <result column="user_id" property="userId" jdbcType="BIGINT" />
-    </resultMap>
+	<resultMap type="cn.lzh.zbzd.model.Answer" id="BaseResultMap">
+		<id column="pk_id" property="id" jdbcType="BIGINT" />
+		<result column="gmt_create" property="createTime" jdbcType="DATE" />
+		<result column="gmt_modified" property="modifiedTime" jdbcType="DATE" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="is_anonymous" property="isAnonymous" jdbcType="TINYINT" />
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+	</resultMap>
 
-    <select id="getAnswerById" parameterType="long"
-        resultType="cn.lzh.zbzd.model.Answer">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId
-        from answer
-        where pk_id = #{id}
-    </select>
-    
-    <select id="listAnswerByUserId" parameterType="long"
-        resultType="cn.lzh.zbzd.model.Answer">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId
-        from answer
-        where user_id = #{userId}
-    </select>
-    
-    <select id="listAnswerByQuestionId" parameterType="long"
-        resultType="cn.lzh.zbzd.model.Answer">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId
-        from answer
-        where question_id = #{questionId}
-    </select>
-    
-    <insert id="insertAnswer" keyProperty="id"
-        parameterType="cn.lzh.zbzd.model.Answer">
-        insert
-        into answer(gmt_create,gmt_modified,content,is_anonymous,user_id,question_id)
-        values(#{createTime},#{modifiedTime},#{content},#{isAnonymous},#{userId},#{questionId})
-    </insert>
-    
-    <select id="getAnswerByUserIdAndQuestionId" parameterType="long"
-        resultType="cn.lzh.zbzd.model.Answer">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime, content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId
-        from answer
-        where user_id = #{userId} and question_id = #{questionId}
-    </select>
+	<select id="getAnswerById" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Answer">
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		content,
+		is_anonymous as isAnonymous, question_id as questionId, user_id as userId
+		from answer
+		where pk_id = #{id}
+	</select>
+
+	<select id="listAnswerByUserId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Answer">
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		content,
+		is_anonymous as isAnonymous, question_id as questionId, user_id as userId
+		from answer
+		where user_id = #{userId}
+	</select>
+
+	<select id="listAnswerByQuestionId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Answer">
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		content,
+		is_anonymous as isAnonymous, question_id as questionId, user_id as userId
+		from answer
+		where question_id = #{questionId}
+	</select>
+
+	<insert id="insertAnswer" keyProperty="id" parameterType="cn.lzh.zbzd.model.Answer">
+		insert
+		into
+		answer(gmt_create,gmt_modified,content,is_anonymous,user_id,question_id)
+		values(#{createTime},#{modifiedTime},#{content},#{isAnonymous},#{userId},#{questionId})
+	</insert>
+
+	<select id="getAnswerByUserIdAndQuestionId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Answer">
+		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		content,
+		is_anonymous as isAnonymous, question_id as questionId, user_id as userId
+		from answer
+		where user_id = #{userId} and question_id = #{questionId}
+	</select>
+
+	<update id="updateAnswer" parameterType="cn.lzh.zbzd.model.Answer">
+		update answer
+		set
+		gmt_create=#{createTime},
+		gmt_modified=#{modifiedTime},
+		content=#{content},
+		is_anonymous=#{isAnonymous},
+		question_id=#{questionId},
+		user_id=#{userId}
+		where pk_id = #{id}
+	</update>
 </mapper>

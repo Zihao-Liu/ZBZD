@@ -10,11 +10,11 @@ import cn.lzh.zbzd.model.Answer;
 import cn.lzh.zbzd.service.AnswerService;
 
 @Service
-public class AnswerServiceImpl implements AnswerService{
-    
+public class AnswerServiceImpl implements AnswerService {
+
     @Autowired
     private AnswerDao answerDao;
-    
+
     @Override
     public Answer getAnswerById(long id) {
         return answerDao.getAnswerById(id);
@@ -40,5 +40,9 @@ public class AnswerServiceImpl implements AnswerService{
         return answerDao.getAnswerByUserIdAndQuestionId(userId, questionId);
     }
 
-    
+    @Override
+    public int updateAnswer(Answer answer) {
+        return answerDao.updateAnswer(answer);
+    }
+
 }

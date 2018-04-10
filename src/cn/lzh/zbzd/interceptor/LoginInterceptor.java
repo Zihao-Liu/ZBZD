@@ -17,7 +17,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         forbiddenURLS.add("/answerController/postAnswer");
         forbiddenURLS.add("/questionController/postQuestion");
         forbiddenURLS.add("/userController/personal");
-        forbiddenURLS.add("/editQuestionAnonymous");
+        forbiddenURLS.add("questionController/editQuestionAnonymous");
+        forbiddenURLS.add("answerController/editAnswerAnonymous");
         forbiddenURLS.add("/answerController/toPostAnswer");
         for (String forbiddenURL : forbiddenURLS) {
             if (requestURL.contains(forbiddenURL) && null == user) {

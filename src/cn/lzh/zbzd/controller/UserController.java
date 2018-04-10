@@ -31,7 +31,7 @@ public class UserController {
 
     @Autowired
     private QuestionServiceImpl questionServiceImpl;
-    
+
     @Autowired
     private AnswerServiceImpl answerServiceImpl;
 
@@ -157,14 +157,14 @@ public class UserController {
         HttpSession session;
         session = request.getSession();
         user = (User) session.getAttribute("user");
-        
-        int curPage=1;
-        if(request.getParameter("curPage")!=null)
+
+        int curPage = 1;
+        if (request.getParameter("curPage") != null)
             curPage = Integer.parseInt(request.getParameter("curPage"));
         int pageSize = 5;
-        
-        String act=request.getParameter("act");
-        if(act==null||act.equals("que")) {
+
+        String act = request.getParameter("act");
+        if (act == null || act.equals("que")) {
             List<Question> questions = questionServiceImpl.listAllQuestionByUserId(user.getId());
             int totalPage = questions.size() / pageSize;
             if (questions.size() % pageSize != 0)
@@ -175,8 +175,8 @@ public class UserController {
             request.setAttribute("curPage", curPage);
             request.setAttribute("questions", questions);
             request.setAttribute("totalPage", totalPage);
-        }else {
-            List<Answer> answers=answerServiceImpl.listAnswerByUserId(user.getId());
+        } else {
+            List<Answer> answers = answerServiceImpl.listAnswerByUserId(user.getId());
             int totalPage = answers.size() / pageSize;
             if (answers.size() % pageSize != 0)
                 totalPage += 1;

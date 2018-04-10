@@ -14,8 +14,8 @@ public interface QuestionDao {
     public int insertQuestion(Question question);
 
     public List<Question> listAllQuestionOrderByModifiedTime();
-    
+
     public List<Question> listAllQuestionOrderByAnswerCount();
-    
+
     public int updateQuestion(Question question);
 }

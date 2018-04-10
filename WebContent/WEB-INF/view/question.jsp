@@ -64,14 +64,14 @@
 					<p class="attachment">
 						最后修改于：${myAnswer.modifiedTime}
 						<c:choose>
-							<c:when test="${1==answer.isAnonymous}">
+							<c:when test="${1==myAnswer.isAnonymous}">
 	                                                                            匿名回答 <input
 									type="button" value="取消匿名" class="ano"
-									onclick="window.location.href=''" />
+									onclick="window.location.href='/zbzd/answerController/editAnswerAnonymous?id=${myAnswer.id}'" />
 							</c:when>
 							<c:otherwise>
 								<input type="button" value="匿名" class="ano"
-									onclick="window.location.href=''" />
+									onclick="window.location.href='/zbzd/answerController/editAnswerAnonymous?id=${myAnswer.id}'" />
 							</c:otherwise>
 						</c:choose>
 					</p>

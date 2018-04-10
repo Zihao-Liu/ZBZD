@@ -13,6 +13,6 @@ public interface QuestionBelongTagService {
     public List<Question> listQuestionByTagIdOrderByModifiedTime(long tagId);
 
     public List<Question> listQuestionByTagIdOrderByAnswerCount(long tagId);
-    
+
     public Tag getTagIdByQuestionId(long questionId);
 }

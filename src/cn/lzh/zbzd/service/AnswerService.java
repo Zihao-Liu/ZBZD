@@ -14,4 +14,6 @@ public interface AnswerService {
     public int insertAnswer(Answer answer);
 
     public Answer getAnswerByUserIdAndQuestionId(long userId, long questionId);
+
+    public int updateAnswer(Answer answer);
 }
