@@ -18,6 +18,7 @@ import cn.lzh.zbzd.model.Question;
 import cn.lzh.zbzd.model.User;
 import cn.lzh.zbzd.serviceimpl.AnswerServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionServiceImpl;
+import cn.lzh.zbzd.serviceimpl.UserResponseAnswerServiceImpl;
 import cn.lzh.zbzd.serviceimpl.UserServiceImpl;
 
 @Controller
@@ -34,6 +35,9 @@ public class UserController {
 
     @Autowired
     private AnswerServiceImpl answerServiceImpl;
+    
+    @Autowired
+    private UserResponseAnswerServiceImpl userResponseAnswerServiceImpl;
 
     @RequestMapping(value = "/toSignUp", method = RequestMethod.GET)
     public String toSignUp(HttpServletRequest request) {
@@ -187,6 +191,11 @@ public class UserController {
             request.setAttribute("answers", answers);
             request.setAttribute("totalPage", totalPage);
         }
+        
+        int likeCount = userResponseAnswerServiceImpl.getLikeResponseCountByUserId(user.getId());
+        int dislikeCount = userResponseAnswerServiceImpl.getDislikeResponseCountByUserId(user.getId());
+        request.setAttribute("likeCount", likeCount);
+        request.setAttribute("dislikeCount", dislikeCount);
         return "personal";
     }
 }

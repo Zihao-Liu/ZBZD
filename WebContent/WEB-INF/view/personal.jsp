@@ -22,6 +22,7 @@
 		<p class="nickname">用户名: ${user.nickname}
 		<p>
 		<p class="gender">性别: ${user.gender}</p>
+		<p class="like">获得赞数:${likeCount} &nbsp; 踩数:${dislikeCount}</p>
 		<p class="introduction">
 			个人简介:
 			<c:if test="${empty user.introduction}">
@@ -84,7 +85,7 @@
 							<a
 								href="/zbzd/questionController/toQuestion?id=${answer.questionId}">${answer.content}</a>
 						</p>
-						<p class="attachment">最后修改于：${answer.modifiedTime}</p>
+						<p class="attachment">赞数:${answer.likeCount}&nbsp; 踩数:${answer.dislikeCount}&nbsp;最后修改于：${answer.modifiedTime}   </p>
 					</div>
 				</c:forEach>
 				<div class="pagetool">

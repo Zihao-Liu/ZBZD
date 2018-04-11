@@ -68,7 +68,7 @@
 }
 
 .oneanswer .attachment{
-    margin-left:500px;
+    margin-left:350px;
     font-size:10px;
 }
 .myanswer .oneanswer{
@@ -88,6 +88,22 @@
 }
 
 .myanswer .attachment{
-    margin-left:500px;
+    margin-left:400px;
     font-size:10px;
+}
+
+.actbar{
+    margin-left:260px;
+    height:30px;
+    padding-top:9px;
+    width:700px;
+}
+.actbar li{
+    display:inline;
+    margin-right:20px;
+    border:solid #5555;
+}
+.actbar li:hover{
+    color:white;
+    background-color:#5555;
 }

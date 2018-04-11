@@ -26,6 +26,8 @@ public class Answer implements Serializable {
     private Byte isAnonymous;
     private long questionId;
     private long userId;
+    private int likeCount;
+    private int dislikeCount;
 
     public long getId() {
         return id;
@@ -85,5 +87,21 @@ public class Answer implements Serializable {
 
     public static long getSerialversionuid() {
         return serialVersionUID;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getDislikeCount() {
+        return dislikeCount;
+    }
+
+    public void setDislikeCount(int dislikeCount) {
+        this.dislikeCount = dislikeCount;
     }
 }

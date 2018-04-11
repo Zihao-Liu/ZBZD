@@ -13,19 +13,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.lzh.zbzd.model.Answer;
 import cn.lzh.zbzd.model.User;
+import cn.lzh.zbzd.model.UserResponseAnswer;
 import cn.lzh.zbzd.serviceimpl.AnswerServiceImpl;
+import cn.lzh.zbzd.serviceimpl.UserResponseAnswerServiceImpl;
 
 @Controller
 @RequestMapping("/answerController")
 public class AnswerController {
     @Autowired
     private AnswerServiceImpl answerServiceImpl;
-
+    
+    @Autowired
+    private UserResponseAnswerServiceImpl userResponseAnswerServiceImpl;
+    
     @Autowired
     private User user;
 
     @Autowired
     private Answer answer;
+    
+    @Autowired
+    private UserResponseAnswer userResponseAnswer;
 
     @RequestMapping(value = "/postAnswer", method = RequestMethod.POST)
     public String postAnswer(HttpServletRequest request) throws UnsupportedEncodingException {
@@ -78,6 +86,54 @@ public class AnswerController {
         } else {
             request.setAttribute("error", "您没有权限");
         }
+        return "forward:/questionController/toQuestion";
+    }
+    
+    @RequestMapping(value = "/responseAnswer", method = RequestMethod.GET)
+    public String responseAnswer(HttpServletRequest request) {
+        Long id = Long.parseLong(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        user = (User) session.getAttribute("user");
+        if(user==null)
+            return "signin";
+        answer = answerServiceImpl.getAnswerById(id);
+        if(userResponseAnswerServiceImpl.getResponseByUserIdAndAnswerId(user.getId(), id)!=null) {
+            request.setAttribute("error", "您已经评价过");
+        }else {
+            userResponseAnswer.setCreateTime(new Date());
+            userResponseAnswer.setModifiedTime(userResponseAnswer.getCreateTime());
+            userResponseAnswer.setAnswerId(id);
+            userResponseAnswer.setUserId(user.getId());
+            Byte like = 1;
+            String act = request.getParameter("act");
+            if(act==null||act.equals("1")) {
+                userResponseAnswer.setIsLike(like);
+            }else {
+                like=0;
+                userResponseAnswer.setIsLike(like);
+            }
+
+            userResponseAnswerServiceImpl.insertResponse(userResponseAnswer);
+        }
+        request.setAttribute("id", answer.getQuestionId());
+        return "forward:/questionController/toQuestion";
+    }
+    
+    @RequestMapping(value = "/deleteResponse", method = RequestMethod.GET)
+    public String deleteResponse(HttpServletRequest request) {
+        Long id = Long.parseLong(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        user = (User) session.getAttribute("user");
+        if(user==null)
+            return "signin";
+        answer = answerServiceImpl.getAnswerById(id);
+        userResponseAnswer=userResponseAnswerServiceImpl.getResponseByUserIdAndAnswerId(user.getId(), id);
+        if(userResponseAnswer==null) {
+            request.setAttribute("error", "您没有评价过");
+        }else {
+            userResponseAnswerServiceImpl.deleteResponseById(userResponseAnswer.getId());
+        }
+        request.setAttribute("id", answer.getQuestionId());
         return "forward:/questionController/toQuestion";
     }
 }

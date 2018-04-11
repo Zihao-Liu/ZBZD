@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=gb2312"%>
 <%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -62,7 +62,7 @@
 				<div class="oneanswer">
 					<p class="content">${myAnswer.content}</p>
 					<p class="attachment">
-						最后修改于：${myAnswer.modifiedTime}
+						最后修改于：${myAnswer.modifiedTime} &nbsp; 赞数:${myAnswer.likeCount}&nbsp; 踩数:${myAnswer.dislikeCount}
 						<c:choose>
 							<c:when test="${1==myAnswer.isAnonymous}">
 	                                                                            匿名回答 <input
@@ -81,6 +81,12 @@
 	</div>
 
 	<br />
+	<ul class="actbar">
+        <li><a
+            href="/zbzd/questionController/toQuestion?id=${question.id}&act=time">最新回答</a></li>
+        <li><a
+            href="/zbzd/questionController/toQuestion?id=${question.id}&act=count">热门回答</a></li>
+    </ul>
 	<hr />
 	<div class="contentbar">
 		<h1>其他回答</h1>
@@ -88,7 +94,37 @@
 			<div class="oneanswer">
 				<p class="content">${answer.content}</p>
 				<p class="attachment">
-					最后修改于：${answer.modifiedTime}
+					最后修改于：${answer.modifiedTime} &nbsp; 赞数:${answer.likeCount}&nbsp; 踩数:${answer.dislikeCount}
+
+					<c:if test="${not empty sessionScope.user}">
+						<sql:setDataSource var="dataSource" driver="com.mysql.jdbc.Driver"
+							url="jdbc:mysql://localhost:3306/zbzd?useUnicode=true&characterEncoding=utf8&useSSL=false"
+							user="root" password="" />
+						<sql:query dataSource="${dataSource}" var="results">
+                            select is_like
+					        from user_response_answer
+					        where user_id = ${sessionScope.user.id} and answer_id = ${answer.id}
+                         </sql:query>
+						<c:forEach var="result" items="${results.rows}">
+							<c:set var="like" value="${result}" />
+						</c:forEach>
+						<c:choose>
+							<c:when test="${empty results.rows}">
+								<a
+									href="/zbzd/answerController/responseAnswer?act=1&id=${answer.id}">喜欢</a>
+								<a
+									href="/zbzd/answerController/responseAnswer?act=0&id=${answer.id}">不喜欢</a>
+							</c:when>
+							<c:otherwise>
+								<c:choose>
+									<c:when test="${like.is_like==1}">&nbsp;您选择了喜欢</c:when>
+									<c:otherwise>&nbsp;您选择了不喜欢</c:otherwise>
+								</c:choose>
+								<a href="/zbzd/answerController/deleteResponse?id=${answer.id}">取消</a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+
 					<c:choose>
 						<c:when test="${1==answer.isAnonymous}">
 	                                                                            匿名回答

@@ -26,8 +26,8 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public List<Answer> listAnswerByQuestionId(long userId) {
-        return answerDao.listAnswerByQuestionId(userId);
+    public List<Answer> listAnswerByQuestionId(long questionId) {
+        return answerDao.listAnswerByQuestionId(questionId);
     }
 
     @Override
@@ -43,6 +43,16 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public int updateAnswer(Answer answer) {
         return answerDao.updateAnswer(answer);
+    }
+
+    @Override
+    public List<Answer> listAnswerByQuestionIdOrderByModifiedTime(long questionId) {
+        return answerDao.listAnswerByQuestionIdOrderByModifiedTime(questionId);
+    }
+
+    @Override
+    public List<Answer> listAnswerByQuestionIdOrderByLikeCount(long questionId) {
+        return answerDao.listAnswerByQuestionIdOrderByLikeCount(questionId);
     }
 
 }

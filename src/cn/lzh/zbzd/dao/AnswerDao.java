@@ -11,7 +11,11 @@ public interface AnswerDao {
 
     public List<Answer> listAnswerByUserId(long userId);
 
-    public List<Answer> listAnswerByQuestionId(long userId);
+    public List<Answer> listAnswerByQuestionId(long questionId);
+    
+    public List<Answer> listAnswerByQuestionIdOrderByModifiedTime(long questionId);
+    
+    public List<Answer> listAnswerByQuestionIdOrderByLikeCount(long questionId);
 
     public int insertAnswer(Answer answer);
 

@@ -111,8 +111,16 @@ public class QuestionController {
             visitor = (User) session.getAttribute("user");
             request.setAttribute("myAnswer", answerServiceImpl.getAnswerByUserIdAndQuestionId(visitor.getId(), id));
         }
-
+        
+        
+        
         List<Answer> answers = answerServiceImpl.listAnswerByQuestionId(id);
+        String act=request.getParameter("act");
+        if(act==null||act.equals("time")) 
+            answers = answerServiceImpl.listAnswerByQuestionIdOrderByModifiedTime(id);
+        else
+            answers = answerServiceImpl.listAnswerByQuestionIdOrderByLikeCount(id);
+        
         int curPage = 1;
         if (request.getParameter("curPage") != null)
             curPage = Integer.parseInt(request.getParameter("curPage"));

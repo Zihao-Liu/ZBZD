@@ -20,6 +20,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         forbiddenURLS.add("questionController/editQuestionAnonymous");
         forbiddenURLS.add("answerController/editAnswerAnonymous");
         forbiddenURLS.add("/answerController/toPostAnswer");
+        forbiddenURLS.add("/answerController/responseAnswer");
+        
         for (String forbiddenURL : forbiddenURLS) {
             if (requestURL.contains(forbiddenURL) && null == user) {
                 response.sendRedirect("/zbzd/userController/toSignIn");
