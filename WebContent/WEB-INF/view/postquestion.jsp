@@ -20,7 +20,7 @@
 		<form action="/zbzd/questionController/postQuestion" method="post">
 			<input type="text" name="title" placeholder="问题标题" /> <input
 				type="text" name="content" placeholder="问题内容" /> <select name="tag">
-				<option value="0">选择话题</option>
+				<option value="1">选择话题</option>
 				<c:forEach var="tag" items="${tags}">
 					<option value="${tag.id}">${tag.name}</option>
 				</c:forEach>

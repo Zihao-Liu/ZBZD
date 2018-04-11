@@ -68,9 +68,12 @@ public class QuestionController {
             return "postquestion";
         }
         long tagId = Long.parseLong(request.getParameter("tag"));
-        String tagName = tagServiceImpl.getTagById(tagId).getName();
-        if (tagId == 0)
+        String tagName;
+        if (tagId == 1) {
             tagName = "нч";
+        }
+        else
+            tagName=tagServiceImpl.getTagById(tagId).getName();
 
         Byte isAnonymous;
         if (request.getParameter("isAnonymous") != null)
