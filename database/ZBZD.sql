@@ -84,7 +84,7 @@ create table favourite(
 	pk_id bigint unsigned auto_increment,
     gmt_create datetime not null,
     gmt_modified datetime not null,
-    name varchar(10) not null,
+    name varchar(20) not null,
     user_id bigint unsigned,
     primary key (pk_id),
     foreign key(user_id) references user(pk_id)

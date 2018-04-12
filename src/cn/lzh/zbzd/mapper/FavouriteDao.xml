@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lzh.zbzd.dao.FavouriteDao">
+
+	<resultMap type="cn.lzh.zbzd.model.Favourite" id="BaseResultMap">
+		<id column="pk_id" property="id" jdbcType="BIGINT" />
+		<result column="gmt_create" property="createTime" jdbcType="DATE" />
+		<result column="gmt_modified" property="modifiedTime" jdbcType="DATE" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+	</resultMap>
+
+    <insert id="insertFavourite" parameterType="cn.lzh.zbzd.model.Favourite" keyProperty="id">
+        insert
+        into
+        favourite(gmt_create,gmt_modified,name,user_id)
+        values(#{createTime},#{modifiedTime},#{name},#{userId})
+    </insert>
+    
+    <select id="getFavouriteById" parameterType="long" resultType="cn.lzh.zbzd.model.Favourite">
+        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,name,user_id as userId
+        from favourite
+        where pk_id = #{id}
+    </select>
+    
+    <select id="listFavouriteByUserId" parameterType="long" resultType="cn.lzh.zbzd.model.Favourite">
+        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,name,user_id as userId
+        from favourite
+        where user_id = #{userId}
+    </select>
+    
+    <delete id="deleteFavourite" parameterType="long">
+        delete 
+        from favourite
+        where pk_id = #{id}
+    </delete>
+
+</mapper>

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.lzh.zbzd.model.Answer;
+import cn.lzh.zbzd.model.Favourite;
 import cn.lzh.zbzd.model.Question;
 import cn.lzh.zbzd.model.User;
 import cn.lzh.zbzd.serviceimpl.AnswerServiceImpl;
+import cn.lzh.zbzd.serviceimpl.FavouriteServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionServiceImpl;
 import cn.lzh.zbzd.serviceimpl.UserResponseAnswerServiceImpl;
 import cn.lzh.zbzd.serviceimpl.UserServiceImpl;
@@ -38,6 +40,9 @@ public class UserController {
     
     @Autowired
     private UserResponseAnswerServiceImpl userResponseAnswerServiceImpl;
+    
+    @Autowired
+    private FavouriteServiceImpl favouriteServiceImpl;
 
     @RequestMapping(value = "/toSignUp", method = RequestMethod.GET)
     public String toSignUp(HttpServletRequest request) {
@@ -156,7 +161,7 @@ public class UserController {
         return "forward:/";
     }
 
-    @RequestMapping(value = "/personal", method = RequestMethod.GET)
+    @RequestMapping(value = "/personal", method = {RequestMethod.GET,RequestMethod.POST})
     public String personal(HttpServletRequest request) {
         HttpSession session;
         session = request.getSession();
@@ -194,6 +199,9 @@ public class UserController {
         
         int likeCount = userResponseAnswerServiceImpl.getLikeResponseCountByUserId(user.getId());
         int dislikeCount = userResponseAnswerServiceImpl.getDislikeResponseCountByUserId(user.getId());
+        
+        List<Favourite> favourites= favouriteServiceImpl.listFavouriteByUserId(user.getId());
+        request.setAttribute("favourites", favourites);
         request.setAttribute("likeCount", likeCount);
         request.setAttribute("dislikeCount", dislikeCount);
         return "personal";

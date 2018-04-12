@@ -55,4 +55,9 @@ public class AnswerServiceImpl implements AnswerService {
         return answerDao.listAnswerByQuestionIdOrderByLikeCount(questionId);
     }
 
+    @Override
+    public List<Answer> listAnswerByFavouriteId(long favouriteId) {
+        return answerDao.listAnswerByFavouriteId(favouriteId);
+    }
+
 }

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.lzh.zbzd.model.Answer;
 import cn.lzh.zbzd.model.User;
+import cn.lzh.zbzd.model.UserCollectAnswer;
 import cn.lzh.zbzd.model.UserResponseAnswer;
 import cn.lzh.zbzd.serviceimpl.AnswerServiceImpl;
+import cn.lzh.zbzd.serviceimpl.UserCollectAnswerServiceImpl;
 import cn.lzh.zbzd.serviceimpl.UserResponseAnswerServiceImpl;
 
 @Controller
@@ -27,6 +29,9 @@ public class AnswerController {
     private UserResponseAnswerServiceImpl userResponseAnswerServiceImpl;
     
     @Autowired
+    private UserCollectAnswerServiceImpl userCollectAnswerServiceImpl;
+    
+    @Autowired
     private User user;
 
     @Autowired
@@ -34,6 +39,9 @@ public class AnswerController {
     
     @Autowired
     private UserResponseAnswer userResponseAnswer;
+    
+    @Autowired
+    private UserCollectAnswer userCollectAnswer;
 
     @RequestMapping(value = "/postAnswer", method = RequestMethod.POST)
     public String postAnswer(HttpServletRequest request) throws UnsupportedEncodingException {
@@ -133,7 +141,47 @@ public class AnswerController {
         }else {
             userResponseAnswerServiceImpl.deleteResponseById(userResponseAnswer.getId());
         }
+        
         request.setAttribute("id", answer.getQuestionId());
         return "forward:/questionController/toQuestion";
     }
+    
+    @RequestMapping(value="/collectAnswer",method=RequestMethod.POST)
+    public String collectAnswer(HttpServletRequest request) {
+        long answerId = Long.parseLong(request.getParameter("id"));
+        long favouriteId=Long.parseLong(request.getParameter("favouriteId"));
+        long questionId = Long.parseLong(request.getParameter("questionId"));
+        HttpSession session = request.getSession();
+        user=(User) session.getAttribute("user");
+        if(user==null) {
+            request.setAttribute("error", "ÇëµÇÂ¼");
+            return "signin";
+        }
+        
+        userCollectAnswer.setAnswerId(answerId);
+        userCollectAnswer.setFavouriteId(favouriteId);
+        userCollectAnswer.setCreateTime(new Date());
+        userCollectAnswer.setModifiedTime(userCollectAnswer.getCreateTime());
+        userCollectAnswer.setUserId(user.getId());
+        
+        userCollectAnswerServiceImpl.insertUserCollectAnswer(userCollectAnswer);
+        request.setAttribute("id", questionId);
+        return "forward:/questionController/toQuestion";
+    }
+    
+    @RequestMapping(value="/deleteCollect",method=RequestMethod.GET)
+    public String deleteCollect(HttpServletRequest request) {
+        long answerId = Long.parseLong(request.getParameter("id"));
+        long questionId = Long.parseLong(request.getParameter("qid"));
+        HttpSession session = request.getSession();
+        user=(User) session.getAttribute("user");
+        if(user==null) {
+            request.setAttribute("error", "ÇëµÇÂ¼");
+            return "signin";
+        }
+        userCollectAnswerServiceImpl.deleteUserCollectAnswerByAnswerIdAndUserId(answerId, user.getId());
+        request.setAttribute("id", questionId);
+        return "forward:/questionController/toQuestion";
+    }
+    
 }

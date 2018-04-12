@@ -62,7 +62,8 @@
 				<div class="oneanswer">
 					<p class="content">${myAnswer.content}</p>
 					<p class="attachment">
-						最后修改于：${myAnswer.modifiedTime} &nbsp; 赞数:${myAnswer.likeCount}&nbsp; 踩数:${myAnswer.dislikeCount}
+						最后修改于：${myAnswer.modifiedTime} &nbsp;
+						赞数:${myAnswer.likeCount}&nbsp; 踩数:${myAnswer.dislikeCount}
 						<c:choose>
 							<c:when test="${1==myAnswer.isAnonymous}">
 	                                                                            匿名回答 <input
@@ -82,11 +83,11 @@
 
 	<br />
 	<ul class="actbar">
-        <li><a
-            href="/zbzd/questionController/toQuestion?id=${question.id}&act=time">最新回答</a></li>
-        <li><a
-            href="/zbzd/questionController/toQuestion?id=${question.id}&act=count">热门回答</a></li>
-    </ul>
+		<li><a
+			href="/zbzd/questionController/toQuestion?id=${question.id}&act=time">最新回答</a></li>
+		<li><a
+			href="/zbzd/questionController/toQuestion?id=${question.id}&act=count">热门回答</a></li>
+	</ul>
 	<hr />
 	<div class="contentbar">
 		<h1>其他回答</h1>
@@ -94,46 +95,76 @@
 			<div class="oneanswer">
 				<p class="content">${answer.content}</p>
 				<p class="attachment">
-					最后修改于：${answer.modifiedTime} &nbsp; 赞数:${answer.likeCount}&nbsp; 踩数:${answer.dislikeCount}
-
-					<c:if test="${not empty sessionScope.user}">
-						<sql:setDataSource var="dataSource" driver="com.mysql.jdbc.Driver"
-							url="jdbc:mysql://localhost:3306/zbzd?useUnicode=true&characterEncoding=utf8&useSSL=false"
-							user="root" password="" />
-						<sql:query dataSource="${dataSource}" var="results">
-                            select is_like
-					        from user_response_answer
-					        where user_id = ${sessionScope.user.id} and answer_id = ${answer.id}
-                         </sql:query>
-						<c:forEach var="result" items="${results.rows}">
-							<c:set var="like" value="${result}" />
-						</c:forEach>
-						<c:choose>
-							<c:when test="${empty results.rows}">
-								<a
-									href="/zbzd/answerController/responseAnswer?act=1&id=${answer.id}">喜欢</a>
-								<a
-									href="/zbzd/answerController/responseAnswer?act=0&id=${answer.id}">不喜欢</a>
-							</c:when>
-							<c:otherwise>
-								<c:choose>
-									<c:when test="${like.is_like==1}">&nbsp;您选择了喜欢</c:when>
-									<c:otherwise>&nbsp;您选择了不喜欢</c:otherwise>
-								</c:choose>
-								<a href="/zbzd/answerController/deleteResponse?id=${answer.id}">取消</a>
-							</c:otherwise>
-						</c:choose>
-					</c:if>
-
+					最后修改于：${answer.modifiedTime} &nbsp; 赞数:${answer.likeCount}&nbsp;
+					踩数:${answer.dislikeCount}
 					<c:choose>
 						<c:when test="${1==answer.isAnonymous}">
-	                                                                            匿名回答
-	                        </c:when>
+                                                                                匿名回答
+                            </c:when>
 						<c:otherwise>
 							<a href="">作者：${answer.userId}</a>
 						</c:otherwise>
 					</c:choose>
 				</p>
+
+				<c:if test="${not empty sessionScope.user}">
+					<sql:setDataSource var="dataSource" driver="com.mysql.jdbc.Driver"
+						url="jdbc:mysql://localhost:3306/zbzd?useUnicode=true&characterEncoding=utf8&useSSL=false"
+						user="root" password="" />
+					<sql:query dataSource="${dataSource}" var="results">
+                            select is_like
+					        from user_response_answer
+					        where user_id = ${sessionScope.user.id} and answer_id = ${answer.id}
+                         </sql:query>
+					<c:forEach var="result" items="${results.rows}">
+						<c:set var="like" value="${result}" />
+					</c:forEach>
+					<c:choose>
+						<c:when test="${empty results.rows}">
+							<a
+								href="/zbzd/answerController/responseAnswer?act=1&id=${answer.id}">喜欢</a>
+							<a
+								href="/zbzd/answerController/responseAnswer?act=0&id=${answer.id}">不喜欢</a>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${like.is_like==1}">&nbsp;您选择了喜欢</c:when>
+								<c:otherwise>&nbsp;您选择了不喜欢</c:otherwise>
+							</c:choose>
+							<a href="/zbzd/answerController/deleteResponse?id=${answer.id}">取消</a>
+						</c:otherwise>
+					</c:choose>
+
+
+
+					<sql:query dataSource="${dataSource}" var="results2">
+                            select *
+                            from user_collect_answer
+                            where user_id = ${sessionScope.user.id} and answer_id = ${answer.id}
+                         </sql:query>
+
+
+					<c:choose>
+						<c:when test="${empty results2.rows}">
+							<form action="/zbzd/answerController/collectAnswer" method="post">
+								<select name="favouriteId" class="favouriteId">
+									<c:forEach var="favourite" items="${favourites}">
+										<option value="${favourite.id}">${favourite.name}</option>
+									</c:forEach>
+								</select> <input type="hidden" name="id" value="${answer.id}" /> <input
+									type="hidden" name="questionId" value="${question.id }" /> <input
+									type="submit" value="收藏" />
+							</form>
+						</c:when>
+						<c:otherwise>
+							<a
+								href="/zbzd/answerController/deleteCollect?id=${answer.id}&qid=${question.id}">取消收藏</a>
+						</c:otherwise>
+					</c:choose>
+
+				</c:if>
+
+
 			</div>
 		</c:forEach>
 		<div class="pagetool">

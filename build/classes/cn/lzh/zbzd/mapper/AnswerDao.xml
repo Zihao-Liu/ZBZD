@@ -142,4 +142,13 @@
 		user_id=#{userId}
 		where pk_id = #{id}
 	</update>
+	
+	<select id="listAnswerByFavouriteId" parameterType="long" resultType="cn.lzh.zbzd.model.Answer">
+	   select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,content,
+       is_anonymous as isAnonymous, question_id as questionId, user_id as userId
+       from answer natural join (
+            select answer_id as pk_id 
+            from user_collect_answer 
+            where favourite_id=#{favouriteId}) as T
+	</select>
 </mapper>

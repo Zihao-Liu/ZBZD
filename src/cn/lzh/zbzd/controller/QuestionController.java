@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.lzh.zbzd.model.Answer;
+import cn.lzh.zbzd.model.Favourite;
 import cn.lzh.zbzd.model.Question;
 import cn.lzh.zbzd.model.Tag;
 import cn.lzh.zbzd.model.User;
 import cn.lzh.zbzd.serviceimpl.AnswerServiceImpl;
+import cn.lzh.zbzd.serviceimpl.FavouriteServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionBelongTagServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionServiceImpl;
 import cn.lzh.zbzd.serviceimpl.TagServiceImpl;
@@ -39,6 +41,9 @@ public class QuestionController {
 
     @Autowired
     AnswerServiceImpl answerServiceImpl;
+    
+    @Autowired
+    FavouriteServiceImpl favouriteServiceImpl;
 
     @Autowired
     User user;
@@ -140,6 +145,11 @@ public class QuestionController {
         request.setAttribute("curPage", curPage);
         tag = questionBelongTagServiceImpl.getTagIdByQuestionId(question.getId());
         request.setAttribute("tagName", tag.getName());
+        
+        List<Favourite> favourites = null;
+        if(visitor!=null)
+            favourites = favouriteServiceImpl.listFavouriteByUserId(visitor.getId());
+        request.setAttribute("favourites", favourites);
         return "question";
     }
 

@@ -14,6 +14,8 @@ public interface AnswerService {
     public List<Answer> listAnswerByQuestionIdOrderByModifiedTime(long questionId);
     
     public List<Answer> listAnswerByQuestionIdOrderByLikeCount(long questionId);
+    
+    public List<Answer> listAnswerByFavouriteId(long favouriteId);
 
     public int insertAnswer(Answer answer);
 

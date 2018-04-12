@@ -107,3 +107,33 @@
     color:white;
     background-color:#5555;
 }
+.favouriteId{
+    width:100px;
+    height:20px;
+}
+
+
+.favouritecontent{
+    margin-left:300px;
+    margin-top:20px;
+    margin-bottom:30px;
+}
+.favouritecontent h1{
+    font-size:20px;
+    margin-bottom:10px;
+}
+.favouritecontent input{
+    width = 20px;
+    color:#555555;
+    background-color:#55555;
+    border:solid;
+}
+.favouritecontent input:hover{
+    color:white;
+    background-color:#555555;
+}
+
+.favouritecontent .attachment{
+    font-size:10px;
+    color:#55555;
+}

@@ -89,3 +89,14 @@ p{
 .oneanswer .content{
     margin-top:10px;
 }
+
+.favourite{
+    margin-left:300px;
+    margin-top:20px;
+}
+
+.onefavourite{
+    display:inline;
+    border:solid;
+    margin-right:20px;
+}

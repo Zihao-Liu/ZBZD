@@ -44,6 +44,17 @@
 			<input type="button" value="编辑个人资料" class="edit" />
 		</p>
 	</div>
+	<hr/>
+	<div class="favourite">
+	   <p>我的收藏夹</p>
+	   <ul>
+	       <li class="onefavourite"><a href="/zbzd/favouriteController/toInsert">创建收藏夹</a></li>
+	       <c:forEach var="favourite" items="${favourites}">
+	           <li class="onefavourite"><a href="/zbzd/favouriteController/toFavourite?id=${favourite.id}">${favourite.name}</a></li>
+	       </c:forEach>
+	   </ul>
+	
+	</div>
 
 	<ul class="actbar">
 		<li><a href="/zbzd/userController/personal?act=que">我的问题</a></li>

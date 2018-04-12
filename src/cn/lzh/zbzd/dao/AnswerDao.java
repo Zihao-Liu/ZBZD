@@ -17,6 +17,8 @@ public interface AnswerDao {
     
     public List<Answer> listAnswerByQuestionIdOrderByLikeCount(long questionId);
 
+    public List<Answer> listAnswerByFavouriteId(long favouriteId);
+    
     public int insertAnswer(Answer answer);
 
     public Answer getAnswerByUserIdAndQuestionId(@Param(value = "userId") long userId,
