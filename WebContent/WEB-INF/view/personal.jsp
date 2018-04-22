@@ -34,11 +34,11 @@
 		<p class="privacy">
 			<c:choose>
 				<c:when test="${user.privacy==1}">
-		                                当前隐私公开 <input type="button" value="隐藏"
+		                                当前隐私公开 <input type="button" value="隐藏" onclick="window.location.href='/zbzd/userController/updatePrivacy'"
 						class="change" />
 				</c:when>
 				<c:otherwise>
-		                               当前隐私隐藏  <input type="button" value="公开"
+		                               当前隐私隐藏  <input type="button" value="公开" onclick="window.location.href='/zbzd/userController/updatePrivacy'"
 						class="change" />
 				</c:otherwise>
 			</c:choose>

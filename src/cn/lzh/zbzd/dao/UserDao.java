@@ -11,5 +11,7 @@ public interface UserDao {
 
     public User listUserByNickName(String nickname);
 
-    public User updateUser(User user);
+    public int updateUser(User user);
+    
+    public int updateUserSignInTime(User user);
 }

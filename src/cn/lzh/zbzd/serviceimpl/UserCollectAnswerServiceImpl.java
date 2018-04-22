@@ -49,4 +49,9 @@ public class UserCollectAnswerServiceImpl implements UserCollectAnswerService{
         return userCollectAnswerDao.deleteUserCollectAnswerByFavouriteId(favouriteId);
     }
 
+    @Override
+    public int deleteUserCollectAnswerByAnswerId(long answerId) {
+        return userCollectAnswerDao.deleteUserCollectAnswerByAnswerId(answerId);
+    }
+
 }

@@ -29,4 +29,12 @@
         from user_collect_answer
         where favourite_id = #{favouriteId}
     </delete>
+    
+    <delete id="deleteUserCollectAnswerByAnswerId" parameterType="long">
+        delete
+        from user_collect_answer
+        where answer_id = #{answerId}
+    </delete>
+    
+    
 </mapper>

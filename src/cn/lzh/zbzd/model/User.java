@@ -27,6 +27,7 @@ public class User implements Serializable {
     private int privacy;
     private String gender;
     private String introduction;
+    private Date signInTime;
 
     public long getId() {
         return id;
@@ -99,4 +100,17 @@ public class User implements Serializable {
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
+
+    public Date getSignInTime() {
+        return signInTime;
+    }
+
+    public void setSignInTime(Date signInTime) {
+        this.signInTime = signInTime;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+    
 }

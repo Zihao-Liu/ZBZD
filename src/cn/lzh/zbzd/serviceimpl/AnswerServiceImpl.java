@@ -60,4 +60,9 @@ public class AnswerServiceImpl implements AnswerService {
         return answerDao.listAnswerByFavouriteId(favouriteId);
     }
 
+    @Override
+    public int deleteAnswer(long id) {
+        return answerDao.deleteAnswer(id);
+    }
+
 }

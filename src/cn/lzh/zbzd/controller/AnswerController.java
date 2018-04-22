@@ -149,7 +149,13 @@ public class AnswerController {
     @RequestMapping(value="/collectAnswer",method=RequestMethod.POST)
     public String collectAnswer(HttpServletRequest request) {
         long answerId = Long.parseLong(request.getParameter("id"));
-        long favouriteId=Long.parseLong(request.getParameter("favouriteId"));
+        long favouriteId;
+        if(request.getParameter("favouriteId")!=null)
+            favouriteId=Long.parseLong(request.getParameter("favouriteId"));
+        else {
+            request.setAttribute("error", "«Î¥¥Ω® ’≤ÿº–");
+            return "forward:/userController/personal";
+        }
         long questionId = Long.parseLong(request.getParameter("questionId"));
         HttpSession session = request.getSession();
         user=(User) session.getAttribute("user");
@@ -180,6 +186,18 @@ public class AnswerController {
             return "signin";
         }
         userCollectAnswerServiceImpl.deleteUserCollectAnswerByAnswerIdAndUserId(answerId, user.getId());
+        request.setAttribute("id", questionId);
+        return "forward:/questionController/toQuestion";
+    }
+    
+    @RequestMapping(value="deleteAnswer",method=RequestMethod.GET)
+    public String deleteAnswer(HttpServletRequest request) {
+        user = (User) request.getSession().getAttribute("user");
+        long id =Long.parseLong(request.getParameter("id"));
+        userCollectAnswerServiceImpl.deleteUserCollectAnswerByAnswerId(id);
+        userResponseAnswerServiceImpl.deleteResponseByAnswerId(id);
+        long questionId=answerServiceImpl.getAnswerById(id).getQuestionId();
+        answerServiceImpl.deleteAnswer(id);
         request.setAttribute("id", questionId);
         return "forward:/questionController/toQuestion";
     }

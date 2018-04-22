@@ -23,12 +23,16 @@
 		<h1>${question.title}</h1>
 		<p>${question.content}</p>
 		<c:choose>
-		  <c:when test="${empty watch}">
-		  <p class="watch"><a href="/zbzd/questionController/watchQuestion?id=${question.id}">关注</a></p>
-		  </c:when>
-		  <c:otherwise>
-		  <p class="watch"><a href="/zbzd/questionController/deleteWatch?id=${question.id}">取消关注</a></p>
-		  </c:otherwise>
+			<c:when test="${empty watch}">
+				<p class="watch">
+					<a href="/zbzd/questionController/watchQuestion?id=${question.id}">关注</a>
+				</p>
+			</c:when>
+			<c:otherwise>
+				<p class="watch">
+					<a href="/zbzd/questionController/deleteWatch?id=${question.id}">取消关注</a>
+				</p>
+			</c:otherwise>
 		</c:choose>
 		<p class="attachment">
 			发布于：${question.createTime} &nbsp;
@@ -69,6 +73,7 @@
 				<div class="oneanswer">
 					<p class="content">${myAnswer.content}</p>
 					<p class="attachment">
+						<a href="/zbzd/answerController/deleteAnswer?id=${myAnswer.id}">删除回答</a>
 						最后修改于：${myAnswer.modifiedTime} &nbsp;
 						赞数:${myAnswer.likeCount}&nbsp; 踩数:${myAnswer.dislikeCount}
 						<c:choose>
@@ -109,7 +114,7 @@
                                                                                 匿名回答
                             </c:when>
 						<c:otherwise>
-							<a href="">作者：${answer.userId}</a>
+							<a href="/zbzd/userController/userPage?id=${answer.userId}">作者：${answer.userId}</a>
 						</c:otherwise>
 					</c:choose>
 				</p>

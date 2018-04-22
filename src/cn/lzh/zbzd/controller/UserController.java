@@ -116,6 +116,7 @@ public class UserController {
             user.setNickname(request.getParameter("nickname"));
             user.setIntroduction(request.getParameter("introduction"));
             user.setPrivacy(Integer.parseInt(request.getParameter("privacy")));
+            user.setSignInTime(user.getCreateTime());
             userServiceImpl.signUp(user);
         } else {
             request.setAttribute("error", "用户名已存在");
@@ -339,5 +340,18 @@ public class UserController {
         user = (User)request.getSession().getAttribute("user");
         request.setAttribute("followings", followServiceImpl.listFollowByFollowerId(user.getId()));
         return "followlist";
+    }
+    
+    @RequestMapping(value="updatePrivacy",method=RequestMethod.GET)
+    public String updatePrivacy(HttpServletRequest request) {
+        user = (User) request.getSession().getAttribute("user");
+        Byte privacy = 0;
+        if(user.getPrivacy()==1)
+            user.setPrivacy(privacy);
+        else {
+            privacy = 1;
+            user.setPrivacy(privacy);
+        }
+        return "forward:/userController/personal";
     }
 }

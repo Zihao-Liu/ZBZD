@@ -151,4 +151,10 @@
             from user_collect_answer 
             where favourite_id=#{favouriteId}) as T
 	</select>
+	
+	<delete id="deleteAnswer" parameterType="long">
+	   delete
+	   from answer
+	   where pk_id = #{id}
+	</delete>
 </mapper>

@@ -25,4 +25,6 @@ public interface AnswerDao {
             @Param(value = "questionId") long questionId);
 
     public int updateAnswer(Answer answer);
+    
+    public int deleteAnswer(long id);
 }

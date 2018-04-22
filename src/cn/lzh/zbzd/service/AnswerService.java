@@ -22,4 +22,6 @@ public interface AnswerService {
     public Answer getAnswerByUserIdAndQuestionId(long userId, long questionId);
 
     public int updateAnswer(Answer answer);
+    
+    public int deleteAnswer(long id);
 }

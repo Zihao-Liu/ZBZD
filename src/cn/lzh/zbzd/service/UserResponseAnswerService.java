@@ -20,4 +20,6 @@ public interface UserResponseAnswerService {
     public UserResponseAnswer getResponseByUserIdAndAnswerId(long userId,long answerId);
     
     public int deleteResponseById(long id);
+    
+    public int deleteResponseByAnswerId(long answerId);
 }

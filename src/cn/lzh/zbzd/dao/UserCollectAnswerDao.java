@@ -13,5 +13,6 @@ public interface UserCollectAnswerDao {
     public List<UserCollectAnswer> listUserCollectAnswerByFavouriteId(long favouriteId);
     public int deleteUserCollectAnswer(long id);
     public int deleteUserCollectAnswerByFavouriteId(long favouriteId);
+    public int deleteUserCollectAnswerByAnswerId(long answerId);
     public int deleteUserCollectAnswerByAnswerIdAndUserId(@Param(value="answerId")long answerId, @Param(value="userId")long userId);
 }

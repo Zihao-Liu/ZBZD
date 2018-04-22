@@ -1,5 +1,7 @@
 package cn.lzh.zbzd.serviceimpl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,9 @@ import cn.lzh.zbzd.service.UserService;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+    
+    @Autowired
+    private User user;
 
     public UserDao getUserDao() {
         return userDao;
@@ -27,11 +32,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User signIn(String username, String password) {
-        User user = userDao.getUserByUsername(username);
+        user = userDao.getUserByUsername(username);
         if (user == null)
             return null;
         else if (!user.getPassword().equals(password))
             return null;
+        user.setSignInTime(new Date());
+        user.setModifiedTime(user.getSignInTime());
+        userDao.updateUserSignInTime(user);
         return user;
     }
 

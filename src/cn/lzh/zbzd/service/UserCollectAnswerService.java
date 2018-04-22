@@ -12,4 +12,5 @@ public interface UserCollectAnswerService {
     public int deleteUserCollectAnswer(long id);
     public int deleteUserCollectAnswerByFavouriteId(long favouriteId);
     public int deleteUserCollectAnswerByAnswerIdAndUserId(long answerId, long userId);
+    public int deleteUserCollectAnswerByAnswerId(long answerId);
 }

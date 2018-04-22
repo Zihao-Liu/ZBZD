@@ -12,4 +12,5 @@ public interface UserService {
     public User checkExistUsername(String username);
 
     public User getUserById(Long id);
+    
 }

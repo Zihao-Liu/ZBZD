@@ -56,4 +56,9 @@ public class UserResponseAnswerServiceImpl implements UserResponseAnswerService{
         return count!=null?count:0;
     }
 
+    @Override
+    public int deleteResponseByAnswerId(long answerId) {
+        return userResponseAnswerDao.deleteResponseByAnswerId(answerId);
+    }
+
 }

@@ -82,4 +82,10 @@
         from user_response_answer
         where pk_id = #{id}
     </delete>
+    
+    <delete id="deleteResponseByAnswerId" parameterType="long">
+        delete
+        from user_response_answer
+        where answer_id = #{answerId}
+    </delete>
 </mapper>

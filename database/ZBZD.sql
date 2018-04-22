@@ -8,6 +8,7 @@ create table user(
     privacy tinyint unsigned default 0,
     gender varchar(6) default 'male',
     introduction text,
+    gmt_signin datetime not null,
     primary key(pk_id)
 );
 
