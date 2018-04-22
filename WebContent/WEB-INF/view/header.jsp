@@ -35,7 +35,7 @@
 				</form>
 			</c:when>
 			<c:otherwise>
-				<div class="user">${user.username}
+				<div class="user">${sessionScope.user.username}
 					<div class="usermenu">
 						<a href="/zbzd/userController/personal?curPage=1&pageSize=5">¸öÈË</a>
 						<a href="/zbzd/userController/signOut">ÍË³ö</a>

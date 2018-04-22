@@ -17,12 +17,14 @@ import cn.lzh.zbzd.model.Favourite;
 import cn.lzh.zbzd.model.Question;
 import cn.lzh.zbzd.model.Tag;
 import cn.lzh.zbzd.model.User;
+import cn.lzh.zbzd.model.UserWatchQuestion;
 import cn.lzh.zbzd.serviceimpl.AnswerServiceImpl;
 import cn.lzh.zbzd.serviceimpl.FavouriteServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionBelongTagServiceImpl;
 import cn.lzh.zbzd.serviceimpl.QuestionServiceImpl;
 import cn.lzh.zbzd.serviceimpl.TagServiceImpl;
 import cn.lzh.zbzd.serviceimpl.UserServiceImpl;
+import cn.lzh.zbzd.serviceimpl.UserWatchQuestionServiceImpl;
 
 @Controller
 @RequestMapping("/questionController")
@@ -35,6 +37,9 @@ public class QuestionController {
 
     @Autowired
     QuestionBelongTagServiceImpl questionBelongTagServiceImpl;
+    
+    @Autowired
+    UserWatchQuestionServiceImpl userWatchQuestionServiceImpl;
 
     @Autowired
     UserServiceImpl userServiceImpl;
@@ -56,6 +61,9 @@ public class QuestionController {
 
     @Autowired
     Tag tag;
+    
+    @Autowired
+    UserWatchQuestion userWatchQuestion;
 
     @RequestMapping(value = "/toPostQuestion", method = RequestMethod.GET)
     public String toPostQuestion(HttpServletRequest request) {
@@ -118,8 +126,8 @@ public class QuestionController {
         if (session.getAttribute("user") != null) {
             visitor = (User) session.getAttribute("user");
             request.setAttribute("myAnswer", answerServiceImpl.getAnswerByUserIdAndQuestionId(visitor.getId(), id));
+            request.setAttribute("watch", userWatchQuestionServiceImpl.getUserWatchQuestionByUserIdAndQuestionId(visitor.getId(), id));
         }
-        
         
         
         List<Answer> answers = answerServiceImpl.listAnswerByQuestionId(id);
@@ -174,6 +182,33 @@ public class QuestionController {
         } else {
             request.setAttribute("error", "您没有权限");
         }
+        return "forward:/questionController/toQuestion";
+    }
+    
+    @RequestMapping(value="watchQuestion",method=RequestMethod.GET)
+    public String watchQuestion(HttpServletRequest request) {
+        Long id = Long.parseLong(request.getParameter("id"));
+        question = questionServiceImpl.getQuestionById(id);
+        
+        user = (User) request.getSession().getAttribute("user");
+        
+        userWatchQuestion.setCreateTime(new Date());
+        userWatchQuestion.setModifiedTime(userWatchQuestion.getCreateTime());
+        userWatchQuestion.setUserId(user.getId());
+        userWatchQuestion.setQuestionId(id);
+        userWatchQuestionServiceImpl.insertUserWatchQuestion(userWatchQuestion);
+        request.setAttribute("question", question);
+        return "forward:/questionController/toQuestion";
+    }
+    
+    @RequestMapping(value="deleteWatch",method=RequestMethod.GET)
+    public String deleteWatch(HttpServletRequest request) {
+        Long id = Long.parseLong(request.getParameter("id"));
+        question = questionServiceImpl.getQuestionById(id);
+        
+        user = (User) request.getSession().getAttribute("user");
+        userWatchQuestionServiceImpl.deleteWatchByUserIdAndQuestionId(user.getId(), id);
+        request.setAttribute("question", question);
         return "forward:/questionController/toQuestion";
     }
 

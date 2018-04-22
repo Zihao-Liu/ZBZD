@@ -23,6 +23,7 @@
 		<p>
 		<p class="gender">性别: ${user.gender}</p>
 		<p class="like">获得赞数:${likeCount} &nbsp; 踩数:${dislikeCount}</p>
+		<p><a href="/zbzd/userController/toFollower">粉丝数:${followerCount}</a>&nbsp; <a href="/zbzd/userController/toFollowing">关注数:${followingCount}</a></p>
 		<p class="introduction">
 			个人简介:
 			<c:if test="${empty user.introduction}">
@@ -59,6 +60,7 @@
 	<ul class="actbar">
 		<li><a href="/zbzd/userController/personal?act=que">我的问题</a></li>
 		<li><a href="/zbzd/userController/personal?act=ans">我的回答</a></li>
+		<li><a href="/zbzd/userController/personal?act=wat">我的关注</a></li>
 	</ul>
 	<hr />
 	<c:choose>

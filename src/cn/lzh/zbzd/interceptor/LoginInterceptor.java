@@ -22,7 +22,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         forbiddenURLS.add("/answerController/toPostAnswer");
         forbiddenURLS.add("/answerController/responseAnswer");
         forbiddenURLS.add("/favouriteController/insertFavourite");
-        
+        forbiddenURLS.add("/questionController/watchQuestion");
+        forbiddenURLS.add("/userController/follow");
+        forbiddenURLS.add("/userController/deleteFollow");
+        forbiddenURLS.add("/userController/toFollowing");
+        forbiddenURLS.add("/userController/toFollower");
         for (String forbiddenURL : forbiddenURLS) {
             if (requestURL.contains(forbiddenURL) && null == user) {
                 response.sendRedirect("/zbzd/userController/toSignIn");

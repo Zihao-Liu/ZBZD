@@ -1,0 +1,12 @@
+.followlist{
+    margin-left:300px;
+    margin-top:50px;
+    width:800px;
+}
+.followlist h1{
+    font-size:20px;
+}
+
+.onefollow{
+    list-style:none;
+}

@@ -22,7 +22,14 @@
 		<p>来自话题:&nbsp;${tagName}</p>
 		<h1>${question.title}</h1>
 		<p>${question.content}</p>
-		<input type="button" value="关注问题">
+		<c:choose>
+		  <c:when test="${empty watch}">
+		  <p class="watch"><a href="/zbzd/questionController/watchQuestion?id=${question.id}">关注</a></p>
+		  </c:when>
+		  <c:otherwise>
+		  <p class="watch"><a href="/zbzd/questionController/deleteWatch?id=${question.id}">取消关注</a></p>
+		  </c:otherwise>
+		</c:choose>
 		<p class="attachment">
 			发布于：${question.createTime} &nbsp;
 			<c:choose>
@@ -34,7 +41,7 @@
 					</c:if>
 				</c:when>
 				<c:otherwise>
-					<a href="#">提问人:${poster.nickname}</a>&nbsp;
+					<a href="/zbzd/userController/userPage?id=${poster.id}">提问人:${poster.nickname}</a>&nbsp;
                 <c:if test="${poster.id==sessionScope.user.id}">
 						<input type="button" value="匿名" class="ano"
 							onclick="window.location.href='/zbzd/questionController/editQuestionAnonymous?id=${question.id}'" />

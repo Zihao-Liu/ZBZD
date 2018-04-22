@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lzh.zbzd.dao.FollowDao">
+
+	<resultMap type="cn.lzh.zbzd.model.Follow" id="BaseResultMap">
+		<id column="pk_id" property="id" jdbcType="BIGINT" />
+		<result column="gmt_create" property="createTime" jdbcType="DATE" />
+		<result column="gmt_modified" property="modifiedTime" jdbcType="DATE" />
+		<result column="follower_id" property="followerId" jdbcType="BIGINT" />
+		<result column="following_id" property="followingid" jdbcType="BIGINT" />
+	</resultMap>
+
+	<insert id="insertFollow" parameterType="cn.lzh.zbzd.model.Follow"
+		keyProperty="id">
+		insert into
+		follow(gmt_create,gmt_modified,follower_id,following_id)
+		VALUES(#{createTime},
+		#{modifiedTime}, #{followerId},#{followingId})
+	</insert>
+
+	<select id="getFollowByFollwerAndFollwing" resultType="cn.lzh.zbzd.model.Follow">
+		select
+		pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,
+		follower_id as followerId,
+		following_id as followingId
+		from follow
+		where
+		follower_id=#{followerId} and following_id=#{followingId}
+	</select>
+
+	<select id="listFollowByFollowerId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Follow">
+		select follow.pk_id as id, follow.gmt_create as createTime,
+		follow.gmt_modified as modifiedTime,
+		follower_id as followerId,
+		following_id as followingId,nickname as name
+		from follow,user
+		where
+		follower_id=#{followerId} and user.pk_id = following_id
+	</select>
+
+	<select id="listFollowByFollowingId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Follow">
+		select follow.pk_id as id, follow.gmt_create as createTime,
+		follow.gmt_modified as modifiedTime,
+		follower_id as followerId,
+		following_id as followingId,nickname as name
+		from follow,user
+		where
+		following_id=#{followingId} and user.pk_id = follower_id
+	</select>
+
+	<delete id="deleteFollow" parameterType="long">
+		delete
+		from follow
+		where
+		follower_id=#{followerId} and following_id=#{followingId}
+	</delete>
+</mapper>

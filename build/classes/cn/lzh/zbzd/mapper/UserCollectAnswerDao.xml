@@ -12,7 +12,7 @@
 		<result column="question_id" property="questionId" jdbcType="BIGINT"/>
 	</resultMap>
 	
-	<insert id="insertUserCollectAnswer" parameterType="cn.lzh.zbzd.model.UserCollectAnswer">
+	<insert id="insertUserCollectAnswer" parameterType="cn.lzh.zbzd.model.UserCollectAnswer" keyProperty="id">
 	   insert 
 	   into user_collect_answer(gmt_create,gmt_modified,favourite_id,user_id,answer_id)
         values(#{createTime},#{modifiedTime},#{favouriteId},#{userId},#{answerId})
