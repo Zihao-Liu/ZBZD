@@ -19,9 +19,12 @@
 		select pk_id as id, gmt_create as createTime, gmt_modified
 		as modifiedTime,
 		title, content,
-		is_anonymous as isAnonymous, user_id as userId,answerCount
-		from question left outer join ((select question_id as pk_id, count(*) as
-		answerCount from answer group by question_id) as A) using(pk_id)
+		is_anonymous as isAnonymous, user_id as
+		userId,answerCount
+		from question left outer join ((select question_id
+		as pk_id, count(*) as
+		answerCount from answer group by question_id) as
+		A) using(pk_id)
 		where
 		pk_id = #{id}
 	</select>
@@ -31,9 +34,12 @@
 		select pk_id as id, gmt_create as createTime, gmt_modified
 		as modifiedTime,
 		title, content,
-		is_anonymous as isAnonymous, user_id as userId,answerCount
-		from question left outer join ((select question_id as pk_id, count(*) as
-		answerCount from answer group by question_id) as A) using(pk_id)
+		is_anonymous as isAnonymous, user_id as
+		userId,answerCount
+		from question left outer join ((select question_id
+		as pk_id, count(*) as
+		answerCount from answer group by question_id) as
+		A) using(pk_id)
 		where
 		user_id = #{userId}
 	</select>
@@ -57,9 +63,12 @@
 		select pk_id as id, gmt_create as createTime, gmt_modified as
 		modifiedTime,
 		title, content,
-		is_anonymous as isAnonymous, user_id as userId,answerCount
-		from question left outer join ((select question_id as pk_id, count(*) as
-		answerCount from answer group by question_id) as A) using(pk_id)
+		is_anonymous as isAnonymous, user_id as
+		userId,answerCount
+		from question left outer join ((select question_id
+		as pk_id, count(*) as
+		answerCount from answer group by question_id) as
+		A) using(pk_id)
 		order
 		by gmt_modified desc
 	</select>
@@ -68,9 +77,12 @@
 		select pk_id as id, gmt_create as createTime, gmt_modified as
 		modifiedTime,
 		title, content,
-		is_anonymous as isAnonymous, user_id as userId,answerCount
-		from question left outer join ((select question_id as pk_id, count(*) as
-		answerCount from answer group by question_id) as A) using(pk_id)
+		is_anonymous as isAnonymous, user_id as
+		userId,answerCount
+		from question left outer join ((select question_id
+		as pk_id, count(*) as
+		answerCount from answer group by question_id) as
+		A) using(pk_id)
 		order by answerCount desc
 	</select>
 
@@ -83,6 +95,7 @@
 		content=#{content},
 		is_anonymous=#{isAnonymous},
 		user_id=#{userId}
-		where pk_id = #{id}
+		where
+		pk_id = #{id}
 	</update>
 </mapper>

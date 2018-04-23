@@ -12,14 +12,14 @@ public interface UserResponseAnswerService {
     public List<UserResponseAnswer> listResponseByUserId(long userId);
 
     public List<UserResponseAnswer> listResponseByAnswerId(long answerId);
-    
+
     public int getLikeResponseCountByUserId(long userId);
-    
+
     public int getDislikeResponseCountByUserId(long userId);
-    
-    public UserResponseAnswer getResponseByUserIdAndAnswerId(long userId,long answerId);
-    
+
+    public UserResponseAnswer getResponseByUserIdAndAnswerId(long userId, long answerId);
+
     public int deleteResponseById(long id);
-    
+
     public int deleteResponseByAnswerId(long answerId);
 }

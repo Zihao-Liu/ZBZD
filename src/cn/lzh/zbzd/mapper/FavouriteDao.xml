@@ -12,29 +12,34 @@
 		<result column="user_id" property="userId" jdbcType="BIGINT" />
 	</resultMap>
 
-    <insert id="insertFavourite" parameterType="cn.lzh.zbzd.model.Favourite" keyProperty="id">
-        insert
-        into
-        favourite(gmt_create,gmt_modified,name,user_id)
-        values(#{createTime},#{modifiedTime},#{name},#{userId})
-    </insert>
-    
-    <select id="getFavouriteById" parameterType="long" resultType="cn.lzh.zbzd.model.Favourite">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,name,user_id as userId
-        from favourite
-        where pk_id = #{id}
-    </select>
-    
-    <select id="listFavouriteByUserId" parameterType="long" resultType="cn.lzh.zbzd.model.Favourite">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,name,user_id as userId
-        from favourite
-        where user_id = #{userId}
-    </select>
-    
-    <delete id="deleteFavourite" parameterType="long">
-        delete 
-        from favourite
-        where pk_id = #{id}
-    </delete>
+	<insert id="insertFavourite" parameterType="cn.lzh.zbzd.model.Favourite"
+		keyProperty="id">
+		insert
+		into
+		favourite(gmt_create,gmt_modified,name,user_id)
+		values(#{createTime},#{modifiedTime},#{name},#{userId})
+	</insert>
+
+	<select id="getFavouriteById" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Favourite">
+		select pk_id as id, gmt_create as createTime, gmt_modified as
+		modifiedTime,name,user_id as userId
+		from favourite
+		where pk_id = #{id}
+	</select>
+
+	<select id="listFavouriteByUserId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Favourite">
+		select pk_id as id, gmt_create as createTime, gmt_modified as
+		modifiedTime,name,user_id as userId
+		from favourite
+		where user_id = #{userId}
+	</select>
+
+	<delete id="deleteFavourite" parameterType="long">
+		delete
+		from favourite
+		where pk_id = #{id}
+	</delete>
 
 </mapper>

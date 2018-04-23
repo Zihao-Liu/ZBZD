@@ -23,6 +23,6 @@ public interface UserResponseAnswerDao {
             @Param(value = "answerId") long answerId);
 
     public int deleteResponseById(long id);
-    
+
     public int deleteResponseByAnswerId(long answerId);
 }

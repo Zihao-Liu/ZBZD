@@ -6,12 +6,19 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.lzh.zbzd.model.User;
+
 public class LoginInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private User user;
+
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        Object user = request.getSession().getAttribute("user");
+        user = (User) request.getSession().getAttribute("user");
         String requestURL = request.getRequestURI();
         List<String> forbiddenURLS = new ArrayList<String>();
         forbiddenURLS.add("/answerController/postAnswer");
@@ -27,6 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         forbiddenURLS.add("/userController/deleteFollow");
         forbiddenURLS.add("/userController/toFollowing");
         forbiddenURLS.add("/userController/toFollower");
+        forbiddenURLS.add("/userController/updatePrivacy");
         for (String forbiddenURL : forbiddenURLS) {
             if (requestURL.contains(forbiddenURL) && null == user) {
                 response.sendRedirect("/zbzd/userController/toSignIn");

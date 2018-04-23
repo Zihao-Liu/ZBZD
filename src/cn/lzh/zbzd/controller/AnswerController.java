@@ -24,22 +24,22 @@ import cn.lzh.zbzd.serviceimpl.UserResponseAnswerServiceImpl;
 public class AnswerController {
     @Autowired
     private AnswerServiceImpl answerServiceImpl;
-    
+
     @Autowired
     private UserResponseAnswerServiceImpl userResponseAnswerServiceImpl;
-    
+
     @Autowired
     private UserCollectAnswerServiceImpl userCollectAnswerServiceImpl;
-    
+
     @Autowired
     private User user;
 
     @Autowired
     private Answer answer;
-    
+
     @Autowired
     private UserResponseAnswer userResponseAnswer;
-    
+
     @Autowired
     private UserCollectAnswer userCollectAnswer;
 
@@ -96,28 +96,28 @@ public class AnswerController {
         }
         return "forward:/questionController/toQuestion";
     }
-    
+
     @RequestMapping(value = "/responseAnswer", method = RequestMethod.GET)
     public String responseAnswer(HttpServletRequest request) {
         Long id = Long.parseLong(request.getParameter("id"));
         HttpSession session = request.getSession();
         user = (User) session.getAttribute("user");
-        if(user==null)
+        if (user == null)
             return "signin";
         answer = answerServiceImpl.getAnswerById(id);
-        if(userResponseAnswerServiceImpl.getResponseByUserIdAndAnswerId(user.getId(), id)!=null) {
+        if (userResponseAnswerServiceImpl.getResponseByUserIdAndAnswerId(user.getId(), id) != null) {
             request.setAttribute("error", "您已经评价过");
-        }else {
+        } else {
             userResponseAnswer.setCreateTime(new Date());
             userResponseAnswer.setModifiedTime(userResponseAnswer.getCreateTime());
             userResponseAnswer.setAnswerId(id);
             userResponseAnswer.setUserId(user.getId());
             Byte like = 1;
             String act = request.getParameter("act");
-            if(act==null||act.equals("1")) {
+            if (act == null || act.equals("1")) {
                 userResponseAnswer.setIsLike(like);
-            }else {
-                like=0;
+            } else {
+                like = 0;
                 userResponseAnswer.setIsLike(like);
             }
 
@@ -126,62 +126,62 @@ public class AnswerController {
         request.setAttribute("id", answer.getQuestionId());
         return "forward:/questionController/toQuestion";
     }
-    
+
     @RequestMapping(value = "/deleteResponse", method = RequestMethod.GET)
     public String deleteResponse(HttpServletRequest request) {
         Long id = Long.parseLong(request.getParameter("id"));
         HttpSession session = request.getSession();
         user = (User) session.getAttribute("user");
-        if(user==null)
+        if (user == null)
             return "signin";
         answer = answerServiceImpl.getAnswerById(id);
-        userResponseAnswer=userResponseAnswerServiceImpl.getResponseByUserIdAndAnswerId(user.getId(), id);
-        if(userResponseAnswer==null) {
+        userResponseAnswer = userResponseAnswerServiceImpl.getResponseByUserIdAndAnswerId(user.getId(), id);
+        if (userResponseAnswer == null) {
             request.setAttribute("error", "您没有评价过");
-        }else {
+        } else {
             userResponseAnswerServiceImpl.deleteResponseById(userResponseAnswer.getId());
         }
-        
+
         request.setAttribute("id", answer.getQuestionId());
         return "forward:/questionController/toQuestion";
     }
-    
-    @RequestMapping(value="/collectAnswer",method=RequestMethod.POST)
+
+    @RequestMapping(value = "/collectAnswer", method = RequestMethod.POST)
     public String collectAnswer(HttpServletRequest request) {
         long answerId = Long.parseLong(request.getParameter("id"));
         long favouriteId;
-        if(request.getParameter("favouriteId")!=null)
-            favouriteId=Long.parseLong(request.getParameter("favouriteId"));
+        if (request.getParameter("favouriteId") != null)
+            favouriteId = Long.parseLong(request.getParameter("favouriteId"));
         else {
             request.setAttribute("error", "请创建收藏夹");
             return "forward:/userController/personal";
         }
         long questionId = Long.parseLong(request.getParameter("questionId"));
         HttpSession session = request.getSession();
-        user=(User) session.getAttribute("user");
-        if(user==null) {
+        user = (User) session.getAttribute("user");
+        if (user == null) {
             request.setAttribute("error", "请登录");
             return "signin";
         }
-        
+
         userCollectAnswer.setAnswerId(answerId);
         userCollectAnswer.setFavouriteId(favouriteId);
         userCollectAnswer.setCreateTime(new Date());
         userCollectAnswer.setModifiedTime(userCollectAnswer.getCreateTime());
         userCollectAnswer.setUserId(user.getId());
-        
+
         userCollectAnswerServiceImpl.insertUserCollectAnswer(userCollectAnswer);
         request.setAttribute("id", questionId);
         return "forward:/questionController/toQuestion";
     }
-    
-    @RequestMapping(value="/deleteCollect",method=RequestMethod.GET)
+
+    @RequestMapping(value = "/deleteCollect", method = RequestMethod.GET)
     public String deleteCollect(HttpServletRequest request) {
         long answerId = Long.parseLong(request.getParameter("id"));
         long questionId = Long.parseLong(request.getParameter("qid"));
         HttpSession session = request.getSession();
-        user=(User) session.getAttribute("user");
-        if(user==null) {
+        user = (User) session.getAttribute("user");
+        if (user == null) {
             request.setAttribute("error", "请登录");
             return "signin";
         }
@@ -189,17 +189,17 @@ public class AnswerController {
         request.setAttribute("id", questionId);
         return "forward:/questionController/toQuestion";
     }
-    
-    @RequestMapping(value="deleteAnswer",method=RequestMethod.GET)
+
+    @RequestMapping(value = "deleteAnswer", method = RequestMethod.GET)
     public String deleteAnswer(HttpServletRequest request) {
         user = (User) request.getSession().getAttribute("user");
-        long id =Long.parseLong(request.getParameter("id"));
+        long id = Long.parseLong(request.getParameter("id"));
         userCollectAnswerServiceImpl.deleteUserCollectAnswerByAnswerId(id);
         userResponseAnswerServiceImpl.deleteResponseByAnswerId(id);
-        long questionId=answerServiceImpl.getAnswerById(id).getQuestionId();
+        long questionId = answerServiceImpl.getAnswerById(id).getQuestionId();
         answerServiceImpl.deleteAnswer(id);
         request.setAttribute("id", questionId);
         return "forward:/questionController/toQuestion";
     }
-    
+
 }

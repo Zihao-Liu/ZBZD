@@ -11,10 +11,10 @@ import cn.lzh.zbzd.service.FollowService;
 
 @Service
 public class FollowServiceImpl implements FollowService {
-    
+
     @Autowired
     FollowDao followDao;
-    
+
     @Override
     public int insertFollow(Follow follow) {
         return followDao.insertFollow(follow);

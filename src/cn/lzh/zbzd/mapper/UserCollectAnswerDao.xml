@@ -9,32 +9,34 @@
 		<result column="gmt_modified" property="modifiedTime" jdbcType="DATE" />
 		<result column="user_id" property="userId" jdbcType="BIGINT" />
 		<result column="answer_id" property="answerId" jdbcType="BIGINT" />
-		<result column="question_id" property="questionId" jdbcType="BIGINT"/>
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
 	</resultMap>
-	
-	<insert id="insertUserCollectAnswer" parameterType="cn.lzh.zbzd.model.UserCollectAnswer" keyProperty="id">
-	   insert 
-	   into user_collect_answer(gmt_create,gmt_modified,favourite_id,user_id,answer_id)
-        values(#{createTime},#{modifiedTime},#{favouriteId},#{userId},#{answerId})
+
+	<insert id="insertUserCollectAnswer" parameterType="cn.lzh.zbzd.model.UserCollectAnswer"
+		keyProperty="id">
+		insert
+		into
+		user_collect_answer(gmt_create,gmt_modified,favourite_id,user_id,answer_id)
+		values(#{createTime},#{modifiedTime},#{favouriteId},#{userId},#{answerId})
 	</insert>
 
-    <delete id="deleteUserCollectAnswerByAnswerIdAndUserId">
-        delete
-        from user_collect_answer
-        where user_id=#{userId} and answer_id=#{answerId}
-    </delete>
-    
-    <delete id="deleteUserCollectAnswerByFavouriteId" parameterType="long">
-        delete
-        from user_collect_answer
-        where favourite_id = #{favouriteId}
-    </delete>
-    
-    <delete id="deleteUserCollectAnswerByAnswerId" parameterType="long">
-        delete
-        from user_collect_answer
-        where answer_id = #{answerId}
-    </delete>
-    
-    
+	<delete id="deleteUserCollectAnswerByAnswerIdAndUserId">
+		delete
+		from user_collect_answer
+		where user_id=#{userId} and answer_id=#{answerId}
+	</delete>
+
+	<delete id="deleteUserCollectAnswerByFavouriteId" parameterType="long">
+		delete
+		from user_collect_answer
+		where favourite_id = #{favouriteId}
+	</delete>
+
+	<delete id="deleteUserCollectAnswerByAnswerId" parameterType="long">
+		delete
+		from user_collect_answer
+		where answer_id = #{answerId}
+	</delete>
+
+
 </mapper>

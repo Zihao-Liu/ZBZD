@@ -30,62 +30,61 @@
 		from user_response_answer
 		where pk_id = #{id}
 	</select>
-	
+
 	<select id="getLikeResponseCountByUserId" parameterType="long"
-        resultType="Integer">
-        select count(*)
-        from user_response_answer
-        group by user_id, is_like
-        having is_like = 1 and user_id = #{id}
-    </select>
-    
-    <select id="getDislikeResponseCountByUserId" parameterType="long"
-        resultType="Integer">
-        select IFNULL(count(*),0)
-        from user_response_answer
-        group by user_id, is_like
-        having is_like = 0 and user_id = #{id}
-    </select>
-	
+		resultType="Integer">
+		select count(*)
+		from user_response_answer
+		group by user_id, is_like
+		having is_like = 1 and user_id = #{id}
+	</select>
+
+	<select id="getDislikeResponseCountByUserId" parameterType="long"
+		resultType="Integer">
+		select IFNULL(count(*),0)
+		from user_response_answer
+		group by user_id, is_like
+		having is_like = 0 and user_id = #{id}
+	</select>
+
 	<select id="listResponseByUserId" parameterType="long"
-        resultType="cn.lzh.zbzd.model.UserResponseAnswer">
-        select pk_id as id, gmt_create as createTime, gmt_modified
-        as modifiedTime,
-        is_like as isLike, user_id as userId,answer_id as
-        answerId
-        from user_response_answer
-        where user_id = #{userId}
-    </select>
-    
-    <select id="listResponseByAnswerId" parameterType="long"
-        resultType="cn.lzh.zbzd.model.UserResponseAnswer">
-        select pk_id as id, gmt_create as createTime, gmt_modified
-        as modifiedTime,
-        is_like as isLike, user_id as userId,answer_id as
-        answerId
-        from user_response_answer
-        where answer_id = #{answerId}
-    </select>
-    
-    <select id="getResponseByUserIdAndAnswerId"
-        resultType="cn.lzh.zbzd.model.UserResponseAnswer">
-        select pk_id as id, gmt_create as createTime, gmt_modified
-        as modifiedTime,
-        is_like as isLike, user_id as userId,answer_id as
-        answerId
-        from user_response_answer
-        where user_id = #{userId} and answer_id = #{answerId}
-    </select>
-    
-    <delete id="deleteResponseById" parameterType="long">
-        delete
-        from user_response_answer
-        where pk_id = #{id}
-    </delete>
-    
-    <delete id="deleteResponseByAnswerId" parameterType="long">
-        delete
-        from user_response_answer
-        where answer_id = #{answerId}
-    </delete>
+		resultType="cn.lzh.zbzd.model.UserResponseAnswer">
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,
+		is_like as isLike, user_id as userId,answer_id as
+		answerId
+		from user_response_answer
+		where user_id = #{userId}
+	</select>
+
+	<select id="listResponseByAnswerId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.UserResponseAnswer">
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,
+		is_like as isLike, user_id as userId,answer_id as
+		answerId
+		from user_response_answer
+		where answer_id = #{answerId}
+	</select>
+
+	<select id="getResponseByUserIdAndAnswerId" resultType="cn.lzh.zbzd.model.UserResponseAnswer">
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,
+		is_like as isLike, user_id as userId,answer_id as
+		answerId
+		from user_response_answer
+		where user_id = #{userId} and answer_id = #{answerId}
+	</select>
+
+	<delete id="deleteResponseById" parameterType="long">
+		delete
+		from user_response_answer
+		where pk_id = #{id}
+	</delete>
+
+	<delete id="deleteResponseByAnswerId" parameterType="long">
+		delete
+		from user_response_answer
+		where answer_id = #{answerId}
+	</delete>
 </mapper>

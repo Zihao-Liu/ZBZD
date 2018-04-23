@@ -29,7 +29,8 @@
 		pk_id as id, gmt_create as createTime,gmt_modified
 		as modifiedTime,
 		uk_username as
-		username,password,nickname,privacy,gender,introduction,gmt_signin as signInTime
+		username,password,nickname,privacy,gender,introduction,gmt_signin as
+		signInTime
 		FROM USER
 		WHERE pk_id = #{id}
 	</select>
@@ -39,7 +40,8 @@
 		SELECT pk_id as id, gmt_create as createTime,gmt_modified
 		as modifiedTime,
 		uk_username as
-		username,password,nickname,privacy,gender,introduction, gmt_signin as signInTime
+		username,password,nickname,privacy,gender,introduction, gmt_signin as
+		signInTime
 		FROM USER
 		WHERE
 		uk_username = #{username}
@@ -50,9 +52,10 @@
 	<select id="getUserByNickname" parameterType="string"
 		resultType="cn.lzh.zbzd.model.User">
 		SELECT pk_id as id, gmt_create as createTime,gmt_modified
-        as modifiedTime,
-        uk_username as
-        username,password,nickname,privacy,gender,introduction, gmt_signin as signInTime
+		as modifiedTime,
+		uk_username as
+		username,password,nickname,privacy,gender,introduction, gmt_signin as
+		signInTime
 		FROM USER
 		WHERE nickname = #{nickname}
 	</select>
@@ -70,13 +73,14 @@
 		WHERE pk_id
 		=#{user.id}
 	</update>
-	
+
 	<update id="updateUserSignInTime" parameterType="cn.lzh.zbzd.model.User">
-	   UPDATE USER
-       SET
-	   gmt_modified = #{modifiedTime},
-	   gmt_signin = #{signInTime}
-	   where pk_id = #{id}
+		UPDATE USER
+		SET
+		gmt_modified = #{modifiedTime},
+		gmt_signin = #{signInTime}
+		where pk_id =
+		#{id}
 	</update>
 
 </mapper>

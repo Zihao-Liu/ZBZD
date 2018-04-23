@@ -9,6 +9,9 @@
 			<li id="logo">ZBZD</li>
 			<li class="fun"><a href="/zbzd">首页</a></li>
 			<li class="fun"><a href="/zbzd/tagController/topTag">话题</a></li>
+			<c:if test="${not empty sessionScope.messages}">
+				<li class="fun"><a href="/zbzd/messageController/toMessage">新私信</a></li>
+			</c:if>
 		</ul>
 
 

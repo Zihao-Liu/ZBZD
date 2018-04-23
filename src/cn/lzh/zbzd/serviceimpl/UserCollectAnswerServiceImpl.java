@@ -10,10 +10,10 @@ import cn.lzh.zbzd.model.UserCollectAnswer;
 import cn.lzh.zbzd.service.UserCollectAnswerService;
 
 @Service
-public class UserCollectAnswerServiceImpl implements UserCollectAnswerService{
+public class UserCollectAnswerServiceImpl implements UserCollectAnswerService {
     @Autowired
     UserCollectAnswerDao userCollectAnswerDao;
-    
+
     @Override
     public int insertUserCollectAnswer(UserCollectAnswer userCollectAnswer) {
         return userCollectAnswerDao.insertUserCollectAnswer(userCollectAnswer);

@@ -10,10 +10,10 @@ import cn.lzh.zbzd.model.UserResponseAnswer;
 import cn.lzh.zbzd.service.UserResponseAnswerService;
 
 @Service
-public class UserResponseAnswerServiceImpl implements UserResponseAnswerService{
+public class UserResponseAnswerServiceImpl implements UserResponseAnswerService {
     @Autowired
     UserResponseAnswerDao userResponseAnswerDao;
-    
+
     @Override
     public int insertResponse(UserResponseAnswer userResponseAnswer) {
         return userResponseAnswerDao.insertResponse(userResponseAnswer);
@@ -47,13 +47,13 @@ public class UserResponseAnswerServiceImpl implements UserResponseAnswerService{
     @Override
     public int getLikeResponseCountByUserId(long userId) {
         Integer count = userResponseAnswerDao.getLikeResponseCountByUserId(userId);
-        return count!=null?count:0;
+        return count != null ? count : 0;
     }
 
     @Override
     public int getDislikeResponseCountByUserId(long userId) {
         Integer count = userResponseAnswerDao.getDislikeResponseCountByUserId(userId);
-        return count!=null?count:0;
+        return count != null ? count : 0;
     }
 
     @Override

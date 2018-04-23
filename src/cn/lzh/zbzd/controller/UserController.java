@@ -164,12 +164,15 @@ public class UserController {
 
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
+
         return "forward:/";
     }
 
     @RequestMapping(value = "/signOut", method = RequestMethod.GET)
     public String signOut(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        user = (User) session.getAttribute("user");
+        userServiceImpl.signOut(user);
         session.removeAttribute("user");
         return "forward:/";
     }
@@ -225,16 +228,15 @@ public class UserController {
         int dislikeCount = userResponseAnswerServiceImpl.getDislikeResponseCountByUserId(user.getId());
 
         List<Favourite> favourites = favouriteServiceImpl.listFavouriteByUserId(user.getId());
-        
-        long followerCount=followServiceImpl.listFollowByFollowingId(user.getId()).size();
-        long followingCount=followServiceImpl.listFollowByFollowerId(user.getId()).size();
-        
+
+        long followerCount = followServiceImpl.listFollowByFollowingId(user.getId()).size();
+        long followingCount = followServiceImpl.listFollowByFollowerId(user.getId()).size();
+
         request.setAttribute("favourites", favourites);
         request.setAttribute("likeCount", likeCount);
         request.setAttribute("dislikeCount", dislikeCount);
         request.setAttribute("followerCount", followerCount);
         request.setAttribute("followingCount", followingCount);
-        
         return "personal";
     }
 
@@ -249,7 +251,7 @@ public class UserController {
             return "forward:/userController/personal";
 
         user = userServiceImpl.getUserById(userId);
-       
+
         int curPage = 1;
         if (request.getParameter("curPage") != null)
             curPage = Integer.parseInt(request.getParameter("curPage"));
@@ -300,7 +302,7 @@ public class UserController {
         request.setAttribute("likeCount", likeCount);
         request.setAttribute("dislikeCount", dislikeCount);
         user = (User) request.getSession().getAttribute("user");
-        if(user!=null)
+        if (user != null)
             request.setAttribute("follow", followServiceImpl.getFollowByFollwerAndFollwing(user.getId(), userId));
         return "userpage";
     }
@@ -327,26 +329,26 @@ public class UserController {
         request.setAttribute("id", id);
         return "forward:/userController/userPage";
     }
-    
-    @RequestMapping(value="/toFollower",method=RequestMethod.GET)
+
+    @RequestMapping(value = "/toFollower", method = RequestMethod.GET)
     public String toFollower(HttpServletRequest request) {
-        user = (User)request.getSession().getAttribute("user");
+        user = (User) request.getSession().getAttribute("user");
         request.setAttribute("followers", followServiceImpl.listFollowByFollowingId(user.getId()));
         return "followlist";
     }
-    
-    @RequestMapping(value="/toFollowing",method=RequestMethod.GET)
+
+    @RequestMapping(value = "/toFollowing", method = RequestMethod.GET)
     public String toFollowing(HttpServletRequest request) {
-        user = (User)request.getSession().getAttribute("user");
+        user = (User) request.getSession().getAttribute("user");
         request.setAttribute("followings", followServiceImpl.listFollowByFollowerId(user.getId()));
         return "followlist";
     }
-    
-    @RequestMapping(value="updatePrivacy",method=RequestMethod.GET)
+
+    @RequestMapping(value = "/updatePrivacy", method = RequestMethod.GET)
     public String updatePrivacy(HttpServletRequest request) {
         user = (User) request.getSession().getAttribute("user");
         Byte privacy = 0;
-        if(user.getPrivacy()==1)
+        if (user.getPrivacy() == 1)
             user.setPrivacy(privacy);
         else {
             privacy = 1;

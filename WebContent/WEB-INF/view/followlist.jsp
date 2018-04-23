@@ -12,8 +12,8 @@
 
 <link href="<%=request.getContextPath()%>/css/header.css"
 	type="text/css" rel="stylesheet" media="all" charset="utf-8" />
-<link href="<%=request.getContextPath()%>/css/followlist.css" type="text/css"
-	rel="stylesheet" media="all" charset="utf-8" />
+<link href="<%=request.getContextPath()%>/css/followlist.css"
+	type="text/css" rel="stylesheet" media="all" charset="utf-8" />
 </head>
 
 <body>

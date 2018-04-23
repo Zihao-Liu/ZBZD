@@ -23,7 +23,10 @@
 		<p>
 		<p class="gender">性别: ${user.gender}</p>
 		<p class="like">获得赞数:${likeCount} &nbsp; 踩数:${dislikeCount}</p>
-		<p><a href="/zbzd/userController/toFollower">粉丝数:${followerCount}</a>&nbsp; <a href="/zbzd/userController/toFollowing">关注数:${followingCount}</a></p>
+		<p>
+			<a href="/zbzd/userController/toFollower">粉丝数:${followerCount}</a>&nbsp;
+			<a href="/zbzd/userController/toFollowing">关注数:${followingCount}</a>
+		</p>
 		<p class="introduction">
 			个人简介:
 			<c:if test="${empty user.introduction}">
@@ -34,33 +37,38 @@
 		<p class="privacy">
 			<c:choose>
 				<c:when test="${user.privacy==1}">
-		                                当前隐私公开 <input type="button" value="隐藏" onclick="window.location.href='/zbzd/userController/updatePrivacy'"
+		                                当前隐私公开 <input type="button" value="隐藏"
+						onclick="window.location.href='/zbzd/userController/updatePrivacy'"
 						class="change" />
 				</c:when>
 				<c:otherwise>
-		                               当前隐私隐藏  <input type="button" value="公开" onclick="window.location.href='/zbzd/userController/updatePrivacy'"
+		                               当前隐私隐藏  <input type="button" value="公开"
+						onclick="window.location.href='/zbzd/userController/updatePrivacy'"
 						class="change" />
 				</c:otherwise>
 			</c:choose>
 			<input type="button" value="编辑个人资料" class="edit" />
 		</p>
 	</div>
-	<hr/>
+	<hr />
 	<div class="favourite">
-	   <p>我的收藏夹</p>
-	   <ul>
-	       <li class="onefavourite"><a href="/zbzd/favouriteController/toInsert">创建收藏夹</a></li>
-	       <c:forEach var="favourite" items="${favourites}">
-	           <li class="onefavourite"><a href="/zbzd/favouriteController/toFavourite?id=${favourite.id}">${favourite.name}</a></li>
-	       </c:forEach>
-	   </ul>
-	
+		<p>我的收藏夹</p>
+		<ul>
+			<li class="onefavourite"><a
+				href="/zbzd/favouriteController/toInsert">创建收藏夹</a></li>
+			<c:forEach var="favourite" items="${favourites}">
+				<li class="onefavourite"><a
+					href="/zbzd/favouriteController/toFavourite?id=${favourite.id}">${favourite.name}</a></li>
+			</c:forEach>
+		</ul>
+
 	</div>
 
 	<ul class="actbar">
 		<li><a href="/zbzd/userController/personal?act=que">我的问题</a></li>
 		<li><a href="/zbzd/userController/personal?act=ans">我的回答</a></li>
 		<li><a href="/zbzd/userController/personal?act=wat">我的关注</a></li>
+		<li><a href="/zbzd/messageController/toMessage">我的私信</a></li>
 	</ul>
 	<hr />
 	<c:choose>
@@ -98,7 +106,8 @@
 							<a
 								href="/zbzd/questionController/toQuestion?id=${answer.questionId}">${answer.content}</a>
 						</p>
-						<p class="attachment">赞数:${answer.likeCount}&nbsp; 踩数:${answer.dislikeCount}&nbsp;最后修改于：${answer.modifiedTime}   </p>
+						<p class="attachment">赞数:${answer.likeCount}&nbsp;
+							踩数:${answer.dislikeCount}&nbsp;最后修改于：${answer.modifiedTime}</p>
 					</div>
 				</c:forEach>
 				<div class="pagetool">

@@ -16,7 +16,7 @@ public interface UserWatchQuestionDao {
             @Param(value = "questionId") long questionId);
 
     public int deleteUserWatchQuestionById(long id);
-    
+
     public int deleteWatchByUserIdAndQuestionId(@Param(value = "userId") long userId,
             @Param(value = "questionId") long questionId);
 }

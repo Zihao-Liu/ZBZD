@@ -37,7 +37,7 @@ public class QuestionController {
 
     @Autowired
     QuestionBelongTagServiceImpl questionBelongTagServiceImpl;
-    
+
     @Autowired
     UserWatchQuestionServiceImpl userWatchQuestionServiceImpl;
 
@@ -46,7 +46,7 @@ public class QuestionController {
 
     @Autowired
     AnswerServiceImpl answerServiceImpl;
-    
+
     @Autowired
     FavouriteServiceImpl favouriteServiceImpl;
 
@@ -61,7 +61,7 @@ public class QuestionController {
 
     @Autowired
     Tag tag;
-    
+
     @Autowired
     UserWatchQuestion userWatchQuestion;
 
@@ -84,9 +84,8 @@ public class QuestionController {
         String tagName;
         if (tagId == 1) {
             tagName = "нч";
-        }
-        else
-            tagName=tagServiceImpl.getTagById(tagId).getName();
+        } else
+            tagName = tagServiceImpl.getTagById(tagId).getName();
 
         Byte isAnonymous;
         if (request.getParameter("isAnonymous") != null)
@@ -126,17 +125,17 @@ public class QuestionController {
         if (session.getAttribute("user") != null) {
             visitor = (User) session.getAttribute("user");
             request.setAttribute("myAnswer", answerServiceImpl.getAnswerByUserIdAndQuestionId(visitor.getId(), id));
-            request.setAttribute("watch", userWatchQuestionServiceImpl.getUserWatchQuestionByUserIdAndQuestionId(visitor.getId(), id));
+            request.setAttribute("watch",
+                    userWatchQuestionServiceImpl.getUserWatchQuestionByUserIdAndQuestionId(visitor.getId(), id));
         }
-        
-        
+
         List<Answer> answers = answerServiceImpl.listAnswerByQuestionId(id);
-        String act=request.getParameter("act");
-        if(act==null||act.equals("time")) 
+        String act = request.getParameter("act");
+        if (act == null || act.equals("time"))
             answers = answerServiceImpl.listAnswerByQuestionIdOrderByModifiedTime(id);
         else
             answers = answerServiceImpl.listAnswerByQuestionIdOrderByLikeCount(id);
-        
+
         int curPage = 1;
         if (request.getParameter("curPage") != null)
             curPage = Integer.parseInt(request.getParameter("curPage"));
@@ -153,9 +152,9 @@ public class QuestionController {
         request.setAttribute("curPage", curPage);
         tag = questionBelongTagServiceImpl.getTagIdByQuestionId(question.getId());
         request.setAttribute("tagName", tag.getName());
-        
+
         List<Favourite> favourites = null;
-        if(visitor!=null)
+        if (visitor != null)
             favourites = favouriteServiceImpl.listFavouriteByUserId(visitor.getId());
         request.setAttribute("favourites", favourites);
         return "question";
@@ -184,14 +183,14 @@ public class QuestionController {
         }
         return "forward:/questionController/toQuestion";
     }
-    
-    @RequestMapping(value="watchQuestion",method=RequestMethod.GET)
+
+    @RequestMapping(value = "watchQuestion", method = RequestMethod.GET)
     public String watchQuestion(HttpServletRequest request) {
         Long id = Long.parseLong(request.getParameter("id"));
         question = questionServiceImpl.getQuestionById(id);
-        
+
         user = (User) request.getSession().getAttribute("user");
-        
+
         userWatchQuestion.setCreateTime(new Date());
         userWatchQuestion.setModifiedTime(userWatchQuestion.getCreateTime());
         userWatchQuestion.setUserId(user.getId());
@@ -200,12 +199,12 @@ public class QuestionController {
         request.setAttribute("question", question);
         return "forward:/questionController/toQuestion";
     }
-    
-    @RequestMapping(value="deleteWatch",method=RequestMethod.GET)
+
+    @RequestMapping(value = "deleteWatch", method = RequestMethod.GET)
     public String deleteWatch(HttpServletRequest request) {
         Long id = Long.parseLong(request.getParameter("id"));
         question = questionServiceImpl.getQuestionById(id);
-        
+
         user = (User) request.getSession().getAttribute("user");
         userWatchQuestionServiceImpl.deleteWatchByUserIdAndQuestionId(user.getId(), id);
         request.setAttribute("question", question);

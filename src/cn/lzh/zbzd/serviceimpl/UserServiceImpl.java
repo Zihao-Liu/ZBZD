@@ -13,7 +13,7 @@ import cn.lzh.zbzd.service.UserService;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
-    
+
     @Autowired
     private User user;
 
@@ -37,16 +37,14 @@ public class UserServiceImpl implements UserService {
             return null;
         else if (!user.getPassword().equals(password))
             return null;
-        user.setSignInTime(new Date());
-        user.setModifiedTime(user.getSignInTime());
-        userDao.updateUserSignInTime(user);
         return user;
     }
 
     @Override
-    public void signOut() {
-        // TODO Auto-generated method stub
-
+    public void signOut(User user) {
+        user.setModifiedTime(new Date());
+        user.setSignInTime(user.getModifiedTime());
+        userDao.updateUserSignInTime(user);
     }
 
     @Override

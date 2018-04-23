@@ -16,95 +16,130 @@
 
 	<select id="getAnswerById" parameterType="long"
 		resultType="cn.lzh.zbzd.model.Answer">
-		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,content,
-		is_anonymous as isAnonymous, question_id as questionId, user_id as userId, likeCount,dislikeCount
-		from answer left outer join 
-		  ((select answer_id as pk_id,count(*) as likeCount 
-		  from user_response_answer 
-		  group by answer_id,is_like 
-		  having is_like = 1)as T)
-		  using (pk_id) left outer join 
-		  ((select answer_id as pk_id,count(*) as dislikeCount 
-		  from user_response_answer 
-		  group by answer_id,is_like 
-		  having is_like = 0)as R)
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,content,
+		is_anonymous as isAnonymous, question_id as
+		questionId, user_id as userId, likeCount,dislikeCount
+		from answer left
+		outer join
+		((select answer_id as pk_id,count(*) as likeCount
+		from
+		user_response_answer
+		group by answer_id,is_like
+		having is_like = 1)as T)
+		using (pk_id) left outer join
+		((select answer_id as pk_id,count(*) as
+		dislikeCount
+		from user_response_answer
+		group by answer_id,is_like
+		having
+		is_like = 0)as R)
 		using (pk_id)
 		where pk_id = #{id}
 	</select>
 
 	<select id="listAnswerByUserId" parameterType="long"
 		resultType="cn.lzh.zbzd.model.Answer">
-		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId, likeCount,dislikeCount
-        from answer left outer join 
-          ((select answer_id as pk_id,count(*) as likeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 1)as T)
-          using (pk_id) left outer join 
-          ((select answer_id as pk_id,count(*) as dislikeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 0)as R)
-        using (pk_id)
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,content,
+		is_anonymous as isAnonymous, question_id as
+		questionId, user_id as userId,
+		likeCount,dislikeCount
+		from answer left
+		outer join
+		((select answer_id as pk_id,count(*) as likeCount
+		from
+		user_response_answer
+		group by answer_id,is_like
+		having is_like = 1)as T)
+		using (pk_id) left outer join
+		((select answer_id as pk_id,count(*) as
+		dislikeCount
+		from user_response_answer
+		group by answer_id,is_like
+		having
+		is_like = 0)as R)
+		using (pk_id)
 		where user_id = #{userId}
 	</select>
 
 	<select id="listAnswerByQuestionId" parameterType="long"
 		resultType="cn.lzh.zbzd.model.Answer">
-		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId, likeCount,dislikeCount
-        from answer left outer join 
-          ((select answer_id as pk_id,count(*) as likeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 1)as T)
-          using (pk_id) left outer join 
-          ((select answer_id as pk_id,count(*) as dislikeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 0)as R)
-        using (pk_id)
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,content,
+		is_anonymous as isAnonymous, question_id as
+		questionId, user_id as userId,
+		likeCount,dislikeCount
+		from answer left
+		outer join
+		((select answer_id as pk_id,count(*) as likeCount
+		from
+		user_response_answer
+		group by answer_id,is_like
+		having is_like = 1)as T)
+		using (pk_id) left outer join
+		((select answer_id as pk_id,count(*) as
+		dislikeCount
+		from user_response_answer
+		group by answer_id,is_like
+		having
+		is_like = 0)as R)
+		using (pk_id)
 		where question_id = #{questionId}
 	</select>
-	
-	<select id="listAnswerByQuestionIdOrderByModifiedTime" parameterType="long"
-        resultType="cn.lzh.zbzd.model.Answer">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId, likeCount,dislikeCount
-        from answer left outer join 
-          ((select answer_id as pk_id,count(*) as likeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 1)as T)
-          using (pk_id) left outer join 
-          ((select answer_id as pk_id,count(*) as dislikeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 0)as R)
-        using (pk_id)
-        where question_id = #{questionId}
-        order by gmt_modified desc
-    </select>
-    
-    <select id="listAnswerByQuestionIdOrderByLikeCount" parameterType="long"
-        resultType="cn.lzh.zbzd.model.Answer">
-        select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId, likeCount,dislikeCount
-        from answer left outer join 
-          ((select answer_id as pk_id,count(*) as likeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 1)as T)
-          using (pk_id) left outer join 
-          ((select answer_id as pk_id,count(*) as dislikeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 0)as R)
-        using (pk_id)
-        where question_id = #{questionId}
-        order by likeCount desc
-    </select>
+
+	<select id="listAnswerByQuestionIdOrderByModifiedTime"
+		parameterType="long" resultType="cn.lzh.zbzd.model.Answer">
+		select pk_id as id, gmt_create as
+		createTime, gmt_modified as
+		modifiedTime,content,
+		is_anonymous as
+		isAnonymous, question_id as questionId, user_id as userId,
+		likeCount,dislikeCount
+		from answer left outer join
+		((select answer_id as
+		pk_id,count(*) as likeCount
+		from user_response_answer
+		group by
+		answer_id,is_like
+		having is_like = 1)as T)
+		using (pk_id) left outer join
+		((select answer_id as pk_id,count(*) as dislikeCount
+		from
+		user_response_answer
+		group by answer_id,is_like
+		having is_like = 0)as R)
+		using (pk_id)
+		where question_id = #{questionId}
+		order by gmt_modified
+		desc
+	</select>
+
+	<select id="listAnswerByQuestionIdOrderByLikeCount"
+		parameterType="long" resultType="cn.lzh.zbzd.model.Answer">
+		select pk_id as id, gmt_create as
+		createTime, gmt_modified as
+		modifiedTime,content,
+		is_anonymous as
+		isAnonymous, question_id as questionId, user_id as userId,
+		likeCount,dislikeCount
+		from answer left outer join
+		((select answer_id as
+		pk_id,count(*) as likeCount
+		from user_response_answer
+		group by
+		answer_id,is_like
+		having is_like = 1)as T)
+		using (pk_id) left outer join
+		((select answer_id as pk_id,count(*) as dislikeCount
+		from
+		user_response_answer
+		group by answer_id,is_like
+		having is_like = 0)as R)
+		using (pk_id)
+		where question_id = #{questionId}
+		order by likeCount desc
+	</select>
 
 	<insert id="insertAnswer" keyProperty="id" parameterType="cn.lzh.zbzd.model.Answer">
 		insert
@@ -115,20 +150,28 @@
 
 	<select id="getAnswerByUserIdAndQuestionId" parameterType="long"
 		resultType="cn.lzh.zbzd.model.Answer">
-		select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,content,
-        is_anonymous as isAnonymous, question_id as questionId, user_id as userId, likeCount,dislikeCount
-        from answer left outer join 
-          ((select answer_id as pk_id,count(*) as likeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 1)as T)
-          using (pk_id) left outer join 
-          ((select answer_id as pk_id,count(*) as dislikeCount 
-          from user_response_answer 
-          group by answer_id,is_like 
-          having is_like = 0)as R)
-        using (pk_id)
-		where user_id = #{userId} and question_id = #{questionId}
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as modifiedTime,content,
+		is_anonymous as isAnonymous, question_id as
+		questionId, user_id as userId,
+		likeCount,dislikeCount
+		from answer left
+		outer join
+		((select answer_id as pk_id,count(*) as likeCount
+		from
+		user_response_answer
+		group by answer_id,is_like
+		having is_like = 1)as T)
+		using (pk_id) left outer join
+		((select answer_id as pk_id,count(*) as
+		dislikeCount
+		from user_response_answer
+		group by answer_id,is_like
+		having
+		is_like = 0)as R)
+		using (pk_id)
+		where user_id = #{userId} and
+		question_id = #{questionId}
 	</select>
 
 	<update id="updateAnswer" parameterType="cn.lzh.zbzd.model.Answer">
@@ -142,19 +185,26 @@
 		user_id=#{userId}
 		where pk_id = #{id}
 	</update>
-	
-	<select id="listAnswerByFavouriteId" parameterType="long" resultType="cn.lzh.zbzd.model.Answer">
-	   select pk_id as id, gmt_create as createTime, gmt_modified as modifiedTime,content,
-       is_anonymous as isAnonymous, question_id as questionId, user_id as userId
-       from answer natural join (
-            select answer_id as pk_id 
-            from user_collect_answer 
-            where favourite_id=#{favouriteId}) as T
+
+	<select id="listAnswerByFavouriteId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Answer">
+		select pk_id as id, gmt_create as createTime, gmt_modified
+		as
+		modifiedTime,content,
+		is_anonymous as isAnonymous, question_id as
+		questionId, user_id as userId
+		from answer natural join (
+		select
+		answer_id as pk_id
+		from user_collect_answer
+		where
+		favourite_id=#{favouriteId}) as T
 	</select>
-	
+
 	<delete id="deleteAnswer" parameterType="long">
-	   delete
-	   from answer
-	   where pk_id = #{id}
+		delete
+		from answer
+		where
+		pk_id = #{id}
 	</delete>
 </mapper>

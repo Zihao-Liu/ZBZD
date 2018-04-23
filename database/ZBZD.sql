@@ -116,6 +116,19 @@ create table user_collect_answer(
     foreign key(favourite_id) references favourite(pk_id)
 );
 
+create table message(
+	pk_id bigint unsigned auto_increment,
+    gmt_create datetime not null,
+    gmt_modified datetime not null,
+    sender_id bigint unsigned not null,
+    receiver_id bigint unsigned not null,
+    content text not null,
+    is_read tinyint unsigned default 0,
+    primary key(pk_id),
+    foreign key(sender_id) references user(pk_id),
+    foreign key(receiver_id) references user(pk_id)
+);
+
 
 INSERT INTO `zbzd`.`tag` (`pk_id`, `gmt_create`, `gmt_modified`, `name`, `father_id`) VALUES ('2', '2018-04-06 00:00:00', '2018-04-06 00:00:00', '游戏', '1');
 INSERT INTO `zbzd`.`tag` (`pk_id`, `gmt_create`, `gmt_modified`, `name`, `father_id`) VALUES ('3', '2018-04-06 00:00:00', '2018-04-06 00:00:00', '运动', '1');

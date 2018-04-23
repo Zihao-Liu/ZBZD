@@ -14,7 +14,8 @@
 	<insert id="insertUserWatchQuestion" parameterType="cn.lzh.zbzd.model.UserWatchQuestion"
 		keyProperty="id">
 		insert
-		into user_watch_question(gmt_create,gmt_modified,user_id,question_id)
+		into
+		user_watch_question(gmt_create,gmt_modified,user_id,question_id)
 		values(#{createTime},#{modifiedTime},#{userId},#{questionId})
 	</insert>
 
@@ -22,8 +23,10 @@
 		resultType="cn.lzh.zbzd.model.UserWatchQuestion">
 		select pk_id as id, gmt_create as createTime, gmt_modified
 		as modifiedTime, user_id as userId, question_id as questionId
-		from user_watch_question
-		where user_id=#{userId} and question_id = #{questionId}
+		from
+		user_watch_question
+		where user_id=#{userId} and question_id =
+		#{questionId}
 	</select>
 
 	<select id="listWatchQuestionsByUserId" parameterType="long"
@@ -31,11 +34,15 @@
 		select pk_id as id, gmt_create as createTime, gmt_modified
 		as modifiedTime,
 		title, content,
-		is_anonymous as isAnonymous, user_id as userId,answerCount
-		from question left outer join ((select question_id as pk_id, count(*) as
-		answerCount from answer group by question_id) as A) using(pk_id)
+		is_anonymous as isAnonymous, user_id as
+		userId,answerCount
+		from question left outer join ((select question_id
+		as pk_id, count(*) as
+		answerCount from answer group by question_id) as
+		A) using(pk_id)
 		where
-		pk_id in(select question_id from user_watch_question where user_id =
+		pk_id in(select question_id from
+		user_watch_question where user_id =
 		#{userId})
 	</select>
 
@@ -48,6 +55,7 @@
 	<delete id="deleteWatchByUserIdAndQuestionId">
 		delete
 		from user_watch_question
-		where user_id = #{userId} and question_id = #{questionId}
+		where user_id =
+		#{userId} and question_id = #{questionId}
 	</delete>
 </mapper>

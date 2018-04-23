@@ -1,0 +1,31 @@
+.messagelist{
+    margin-left:300px;
+    margin-top:50px;
+    width:1000px;
+}
+
+.messagelist ul{
+    margin-left:-40px;
+}
+.messagelist li{
+    list-style:none;
+    display:inline;
+    margin-right:40px;
+    padding-left:10px;
+    padding-right:10px;
+    border:solid;
+}
+
+.pagetool{
+    text-align:center;
+}
+
+.onemessage{
+    margin-top:20px;
+    margin-bottom:20px;
+    border:solid;
+}
+.onemessage p{
+    margin-left:20px;
+    font-size:15px;
+}

@@ -13,7 +13,7 @@ import cn.lzh.zbzd.service.FavouriteService;
 public class FavouriteServiceImpl implements FavouriteService {
     @Autowired
     private FavouriteDao favouriteDao;
-    
+
     @Override
     public int insertFavourite(Favourite favourite) {
         return favouriteDao.insertFavourite(favourite);

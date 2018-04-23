@@ -53,5 +53,6 @@
 			<mvc:mapping path="/**" />
 			<bean class="cn.lzh.zbzd.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
+		<bean class="cn.lzh.zbzd.interceptor.MessageInterceptor"></bean>
 	</mvc:interceptors>
 </beans>

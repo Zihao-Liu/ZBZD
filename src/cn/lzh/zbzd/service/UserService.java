@@ -7,10 +7,10 @@ public interface UserService {
 
     public User signIn(String username, String password);
 
-    public void signOut();
+    public void signOut(User user);
 
     public User checkExistUsername(String username);
 
     public User getUserById(Long id);
-    
+
 }

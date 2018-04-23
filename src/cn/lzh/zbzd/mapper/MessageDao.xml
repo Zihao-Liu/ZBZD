@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lzh.zbzd.dao.MessageDao">
+
+	<resultMap type="cn.lzh.zbzd.model.Message" id="BaseResultMap">
+		<id column="pk_id" property="id" jdbcType="BIGINT" />
+		<result column="gmt_create" property="createTime" jdbcType="DATE" />
+		<result column="gmt_modified" property="modifiedTime" jdbcType="DATE" />
+		<result column="sender_id" property="senderId" jdbcType="BIGINT" />
+		<result column="receiver_id" property="receiverid" jdbcType="BIGINT" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insertMessage" parameterType="cn.lzh.zbzd.model.Message"
+		keyProperty="id">
+		insert into
+		message(gmt_create,gmt_modified,sender_id,receiver_id,content,is_read)
+		VALUES(#{createTime},
+		#{modifiedTime},
+		#{senderId},#{receiverId},#{content},0)
+	</insert>
+
+	<select id="getMessageBySenderId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Message">
+		select message.pk_id as id, message.gmt_create as
+		createTime, message.gmt_modified as
+		modifiedTime,sender_id as senderId,
+		receiver_id as receiverId,
+		content,is_read as isRead, nickname as name
+		from message,user
+		where sender_id = #{senderId} and
+		sender_id=user.pk_id
+	</select>
+
+	<select id="getMessageByReceiverId" parameterType="long"
+		resultType="cn.lzh.zbzd.model.Message">
+		select message.pk_id as id, message.gmt_create as
+		createTime, message.gmt_modified as
+		modifiedTime,sender_id as senderId, receiver_id as receiverId,
+		content,is_read as isRead, nickname as name
+		from message,user
+		where receiver_id = #{receiverId} and receiver_id =
+		user.pk_id
+	</select>
+
+	<select id="getMessageByReceiverIdAndTime" resultType="cn.lzh.zbzd.model.Message">
+		select
+		message.pk_id as id, message.gmt_create as createTime,
+		message.gmt_modified as
+		modifiedTime,sender_id as senderId, receiver_id as receiverId,
+		content,is_read as isRead, nickname as name
+		from message,user
+		where receiver_id = #{receiverId} and
+		message.gmt_create>#{lastSignInTime} and sender_id = user.pk_id and
+		is_read=0
+	</select>
+
+	<delete id="deleteMessageById" parameterType="long">
+		delete
+		from message
+		where pk_id = #{id}
+	</delete>
+
+	<update id="updateIsRead" parameterType="long">
+		update message
+		set is_read = 1
+		where pk_id = #{id}
+	</update>
+
+</mapper>

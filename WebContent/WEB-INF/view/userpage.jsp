@@ -19,8 +19,7 @@
 <body>
 	<%@include file="header.jsp"%>
 	<div class="personal">
-		<p class="nickname">用户名: ${user.nickname}
-		<p>
+		<p class="nickname">用户名: ${user.nickname}</p>
 		<p class="gender">性别: ${user.gender}</p>
 		<p class="like">获得赞数:${likeCount} &nbsp; 踩数:${dislikeCount}</p>
 		<p class="introduction">
@@ -30,14 +29,19 @@
             </c:if>
 			${user.introduction}
 		</p>
-        <c:choose>
-            <c:when test="${empty follow}">
-                <p><a href="/zbzd/userController/follow?id=${user.id}">关注</a></p>
-            </c:when>
-            <c:otherwise>
-                <p><a href="/zbzd/userController/deleteFollow?id=${user.id}">取消关注</a></p>
-            </c:otherwise>
-        </c:choose>
+		<p><a href="/zbzd/messageController/toSendMessage?id=${user.id}">发送私信</a></p>
+		<c:choose>
+			<c:when test="${empty follow}">
+				<p>
+					<a href="/zbzd/userController/follow?id=${user.id}">关注</a>
+				</p>
+			</c:when>
+			<c:otherwise>
+				<p>
+					<a href="/zbzd/userController/deleteFollow?id=${user.id}">取消关注</a>
+				</p>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<hr />
 	<c:if test="${user.privacy==0}">
